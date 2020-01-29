@@ -1,6 +1,6 @@
 {
-  "name": "sorting-hat-functions2",
-  "version": "1.0.0",
+  "name": "sorting-hat-functions",
+  "version": "2.0.0",
   "description": "",
   "scripts": {
     "build": "tsc",
@@ -9,7 +9,13 @@
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "@azure/cosmos": "^2.1.7",
+    "@azure/storage-blob": "^10.3.0",
+    "@types/lodash": "^4.14.136",
+    "@types/node": "^11.13.18",
+    "lodash": "^4.17.15"
+  },
   "devDependencies": {
     "@azure/functions": "^1.0.2-beta2",
     "typescript": "^3.3.3"
