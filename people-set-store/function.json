@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "name": "triggerMessage",
+      "type": "queueTrigger",
+      "queueName": "people-set-store",
+      "connection": "wrdsbsortinghat_STORAGE",
+      "direction": "in"
+    }
+  ],
+  "disabled": false,
+  "scriptFile": "../dist/people-set-store/index.js"
+}
