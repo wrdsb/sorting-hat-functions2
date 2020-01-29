@@ -1,0 +1,350 @@
+{
+    "bindings": [
+        {
+            "name": "triggerMessage",
+            "type": "queueTrigger",
+            "direction": "in",
+            "queueName": "memberships-one-offs-calculate",
+            "connection": "wrdsbsortinghat_STORAGE"
+        },
+        {
+            "name": "iamwpRaw",
+            "type": "blob",
+            "path": "hris/view-iamwp-raw.json",
+            "connection": "wrdsbflenderson_STORAGE",
+            "direction": "in"
+        },
+        {
+            "name": "admissionsQnaJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "admissions-qna-job-codes",
+            "partitionKey": "admissions-qna-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "deceStaffGroupCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "dece-staff-group-codes",
+            "partitionKey": "dece-staff-group-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "eaStaffJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "ea-staff-job-codes",
+            "partitionKey": "ea-staff-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "edDeploymentManagerJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "ed-deployment-manager-job-codes",
+            "partitionKey": "ed-deployment-manager-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "edDeploymentMemberJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "ed-deployment-member-job-codes",
+            "partitionKey": "ed-deployment-member-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "edInquiriesJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "ed-inquiries-job-codes",
+            "partitionKey": "ed-inquiries-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "edcLocationCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "edc-location-codes",
+            "partitionKey": "edc-location-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "elementarySertsJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "elementary-serts-job-codes",
+            "partitionKey": "elementary-serts-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "financeJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "finance-job-codes",
+            "partitionKey": "finance-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "financeLocationCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "finance-location-codes",
+            "partitionKey": "finance-location-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "grcHealthSafetyLocationCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "grc-health-safety-location-codes",
+            "partitionKey": "grc-health-safety-location-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "intranetLibraryJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "intranet-library-job-codes",
+            "partitionKey": "intranet-library-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "intranetTrilliumJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "intranet-trillium-job-codes",
+            "partitionKey": "intranet-trillium-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "itinerantSpecEdJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "itinerant-spec-ed-job-codes",
+            "partitionKey": "itinerant-spec-ed-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "itinerantSpecEdLocationCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "itinerant-spec-ed-location-codes",
+            "partitionKey": "itinerant-spec-ed-location-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "itsJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "its-job-codes",
+            "partitionKey": "its-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "itsLocationCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "its-location-codes",
+            "partitionKey": "its-location-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "itsManagerCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "its-staff-managers-job-codes",
+            "partitionKey": "its-staff-managers-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "procurementQnaJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "procurement-qna-job-codes",
+            "partitionKey": "procurement-qna-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "psychologistsJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "psychologists-job-codes",
+            "partitionKey": "psychologists-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "riskJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "risk-job-codes",
+            "partitionKey": "risk-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "schoolDayJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "school-day-job-codes",
+            "partitionKey": "school-day-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "secondarySertsJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "secondary-serts-job-codes",
+            "partitionKey": "secondary-serts-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "smacaElementaryGroupCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "smaca-elementary-group-codes",
+            "partitionKey": "smaca-elementary-group-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "smacaSecondaryGroupCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "smaca-secondary-group-codes",
+            "partitionKey": "smaca-secondary-group-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "socialWorkersJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "social-workers-job-codes",
+            "partitionKey": "social-workers-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "specialEducationLocationCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "special-education-location-codes",
+            "partitionKey": "special-education-location-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "specialEducationConsultantsJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "special-education-consultants-job-codes",
+            "partitionKey": "special-education-consultants-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "speechLanguageJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "speech-language-job-codes",
+            "partitionKey": "speech-language-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "systemLeadersJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "system-leaders-job-codes",
+            "partitionKey": "system-leaders-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "thrMessageBoardJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "thr-message-board-job-codes",
+            "partitionKey": "thr-message-board-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "tweaJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "twea-job-codes",
+            "partitionKey": "twea-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "wrdsbManagersJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "wrdsb-managers-job-codes",
+            "partitionKey": "wrdsb-managers-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        }
+    ],
+    "disabled": false,
+    "scriptFile": "../dist/memberships-one-offs-calculate/index.js"
+}
