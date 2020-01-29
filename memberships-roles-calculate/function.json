@@ -1,0 +1,140 @@
+{
+    "bindings": [
+        {
+            "name": "triggerMessage",
+            "type": "queueTrigger",
+            "direction": "in",
+            "queueName": "memberships-roles-calculate",
+            "connection": "wrdsbsortinghat_STORAGE"
+        },
+        {
+            "name": "iamwpRaw",
+            "type": "blob",
+            "path": "hris/view-iamwp-raw.json",
+            "connection": "wrdsbflenderson_STORAGE",
+            "direction": "in"
+        },
+        {
+            "name": "elementaryAdminJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "elementary-admin-job-codes",
+            "partitionKey": "elementary-admin-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "elementaryHeadSecretariesJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "elementary-head-secretaries-job-codes",
+            "partitionKey": "elementary-head-secretaries-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "elementaryCSecretariesJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "elementary-c-secretaries-job-codes",
+            "partitionKey": "elementary-c-secretaries-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "elementaryOtTeachersJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "elementary-ot-teachers-job-codes",
+            "partitionKey": "elementary-ot-teachers-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "elementaryTeachersGroupCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "elementary-teachers-group-codes",
+            "partitionKey": "elementary-teachers-group-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "elementaryStaffingSupportJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "elementary-staffing-support-job-codes",
+            "partitionKey": "elementary-staffing-support-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "secondaryAdminJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "secondary-admin-job-codes",
+            "partitionKey": "secondary-admin-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "secondaryOfficeSupervisorsJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "secondary-office-supervisors-job-codes",
+            "partitionKey": "secondary-office-supervisors-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "secondaryOfficeAssistantsJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "secondary-office-assistants-job-codes",
+            "partitionKey": "secondary-office-assistants-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "secondaryCSecretariesJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "secondary-c-secretaries-job-codes",
+            "partitionKey": "secondary-c-secretaries-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "secondaryTeachersGroupCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "secondary-teachers-group-codes",
+            "partitionKey": "secondary-teachers-group-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "secondaryOtTeachersGroupCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "secondary-ot-teachers-group-codes",
+            "partitionKey": "secondary-ot-teachers-group-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        }
+    ],
+    "disabled": false,
+    "scriptFile": "../dist/memberships-roles-calculate/index.js"
+}
