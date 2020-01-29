@@ -1,9 +1,9 @@
 import { AzureFunction, Context } from "@azure/functions"
-import { createLogObject } from "../SharedCode/createLogObject";
-import { createLogBlob } from "../SharedCode/createLogBlob";
-import { createCallbackMessage } from "../SharedCode/createCallbackMessage";
-import { createEvent } from "../SharedCode/createEvent";
-import { createBlob } from "../SharedCode/createBlob";
+import { createLogObject } from "../shared/createLogObject";
+import { createLogBlob } from "../shared/createLogBlob";
+import { createCallbackMessage } from "../shared/createCallbackMessage";
+import { createEvent } from "../shared/createEvent";
+import { createBlob } from "../shared/createBlob";
 
 const membershipsABCCalculate: AzureFunction = async function (context: Context, triggerMessage: string): Promise<void> {
     const functionInvocationID = context.executionContext.invocationId;

@@ -1,10 +1,10 @@
 import { AzureFunction, Context } from "@azure/functions"
 import { CosmosClient } from "@azure/cosmos";
 import { isEqual } from "lodash";
-import { createLogObject } from "../SharedCode/createLogObject";
-import { createLogBlob } from "../SharedCode/createLogBlob";
-import { createCallbackMessage } from "../SharedCode/createCallbackMessage";
-import { createEvent } from "../SharedCode/createEvent";
+import { createLogObject } from "../shared/createLogObject";
+import { createLogBlob } from "../shared/createLogBlob";
+import { createCallbackMessage } from "../shared/createCallbackMessage";
+import { createEvent } from "../shared/createEvent";
 
 const ippsJobsReconcile: AzureFunction = async function (context: Context, triggerMessage: string): Promise<void> {
     const functionInvocationID = context.executionContext.invocationId;
