@@ -15,9 +15,9 @@
             "direction": "in"
         },
         {
-            "name": "queuePeopleSetStore",
+            "name": "queuePeopleSetDefinitionStore",
             "type": "queue",
-            "queueName": "people-set-store",
+            "queueName": "people-set-definition-store",
             "connection": "wrdsbsortinghat_STORAGE",
             "direction": "out"
         },
