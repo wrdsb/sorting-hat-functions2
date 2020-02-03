@@ -4,7 +4,7 @@ async function findDeletes(context, calculation)
     let currentLocationsCount = Object.getOwnPropertyNames(calculation.records_previous).length;
 
     context.log('Find deletes...');
-    context.log('Processing ' + newLocationsCount + ' new locations and ' + currentLocationsCount + ' current locations.');
+    context.log('Processing ' + newLocationsCount + ' new records and ' + currentLocationsCount + ' current records.');
 
     let records_previous = calculation.records_previous;
     let records_now = calculation.records_now;

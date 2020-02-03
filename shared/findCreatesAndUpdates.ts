@@ -6,7 +6,7 @@ async function findCreatesAndUpdates(context, calculation)
     let currentRecordsCount = Object.getOwnPropertyNames(calculation.records_previous).length;
 
     context.log('Find creates and updates...');
-    context.log('Processing ' + newRecordsCount + ' new locations and ' + currentRecordsCount + ' current locations.');
+    context.log('Processing ' + newRecordsCount + ' new records and ' + currentRecordsCount + ' current records.');
 
     let records_previous = calculation.records_previous;
     let records_now = calculation.records_now;
