@@ -108,18 +108,14 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
     
         rows.forEach(function(row) {
             if (row.EMAIL_ADDRESS
-                && row.USERNAME
-                && row.EMPLOYEE_ID
-                && !excluded_job_codes.includes(row.JOB_CODE)
-                && activity_codes.includes(row.ACTIVITY_CODE)
                 && row.JOB_CODE
                 && row.SCHOOL_CODE
+                && !excluded_job_codes.includes(row.JOB_CODE)
+                && activity_codes.includes(row.ACTIVITY_CODE)
                 && isNaN(row.SCHOOL_CODE)
                 && requested_school_code == row.SCHOOL_CODE.toUpperCase()
             ) {
                 let email = row.EMAIL_ADDRESS;
-                let username = row.USERNAME;
-                let ein = row.EMPLOYEE_ID;
                 let job_code = 'JC-' + row.JOB_CODE;
                 let school_code = 'SC-' + row.SCHOOL_CODE.toUpperCase();
 
@@ -135,12 +131,6 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
                 if (row.ACTIVITY_CODE) {
                     let activity_code = row.ACTIVITY_CODE;
                 }
-
-                let membership = {
-                    ein: ein,
-                    email: email,
-                    username: username
-                };
 
                 members['staff-school-codes'].push(email);
 
