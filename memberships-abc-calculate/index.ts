@@ -5,7 +5,7 @@ import { createCallbackMessage } from "../shared/createCallbackMessage";
 import { createEvent } from "../shared/createEvent";
 import { createBlob } from "../shared/createBlob";
 
-const membershipsABCCalculate: AzureFunction = async function (context: Context, triggerMessage: string): Promise<void> {
+const membershipsABCCalculate: AzureFunction = async function (context: Context, triggerMessage: any): Promise<void> {
     const functionInvocationID = context.executionContext.invocationId;
     const functionInvocationTime = new Date();
     const functionInvocationTimestamp = functionInvocationTime.toJSON();  // format: 2012-04-23T18:25:43.511Z
@@ -40,13 +40,13 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
 
     const rows = context.bindings.iamwpRaw;
 
-    const triggerJSON = JSON.parse(triggerMessage);
-    const requested_school_code = triggerJSON.school_code.toLowerCase();
+    const triggerJSON = triggerMessage;
+    const requested_school_code = triggerJSON.school_code.toUpperCase();
 
     const excluded_job_codes = ['6106', '6118'];
     const activity_codes = ['ACTIVE', 'ONLEAVE'];
 
-    let calculated_members = await calculateMembers(rows);
+    let calculated_members = await calculateMembers(excluded_job_codes, activity_codes, requested_school_code, rows);
     let staff_blob_results = await parseStaffMembers(calculated_members);
 
     let response = {};
@@ -73,21 +73,29 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
     context.done(null, logBlob);
 
     async function parseStaffMembers(members) {
-        let create_blob_results = [];
+        let createBlobResults = [];
 
         Object.getOwnPropertyNames(members).forEach(async function (group_slug) {
-            let blob_name = requested_school_code +'-'+ group_slug +'.json';
-            let memberships = JSON.stringify(members[group_slug]);
-            let result = await createBlob(blobStorageAccount, blobStorageKey, blobStorageContainer, blob_name, memberships);
-            create_blob_results.push(result);
+            let blobName = requested_school_code.toLowerCase() +'-'+ group_slug +'.json';
+            let memberships = members[group_slug];
+            let uniqueMemberships = new Set(memberships);
+            let blobContent = JSON.stringify([...uniqueMemberships]);
+            let result = await createBlob(
+                blobStorageAccount,
+                blobStorageKey,
+                blobStorageContainer,
+                blobName,
+                blobContent
+            );
+            createBlobResults.push(result);
         });
 
-        return create_blob_results;
+        return createBlobResults;
     }
 
-    async function calculateMembers (rows) {
-        let members = [];
-        members['staff'] = [];
+    async function calculateMembers(excluded_job_codes, activity_codes, requested_school_code, rows) {
+        let members = {};
+        members['staff-school-codes'] = [];
         members['admin-job-codes'] = [];
         members['attendance-job-codes'] = [];
         members['beforeafter-job-codes'] = [];
@@ -100,16 +108,20 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
     
         rows.forEach(function(row) {
             if (row.EMAIL_ADDRESS
+                && row.USERNAME
+                && row.EMPLOYEE_ID
                 && !excluded_job_codes.includes(row.JOB_CODE)
                 && activity_codes.includes(row.ACTIVITY_CODE)
                 && row.JOB_CODE
                 && row.SCHOOL_CODE
                 && isNaN(row.SCHOOL_CODE)
-                && requested_school_code == row.SCHOOL_CODE.toLowerCase()
+                && requested_school_code == row.SCHOOL_CODE.toUpperCase()
             ) {
                 let email = row.EMAIL_ADDRESS;
+                let username = row.USERNAME;
+                let ein = row.EMPLOYEE_ID;
                 let job_code = 'JC-' + row.JOB_CODE;
-                let school_code = 'SC-' + row.SCHOOL_CODE.toLowerCase();
+                let school_code = 'SC-' + row.SCHOOL_CODE.toUpperCase();
 
                 if (row.EMP_GROUP_CODE) {
                     let group_code = 'GC-' + row.EMP_GROUP_CODE;
@@ -124,7 +136,13 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
                     let activity_code = row.ACTIVITY_CODE;
                 }
 
-                members['staff'].push(email);
+                let membership = {
+                    ein: ein,
+                    email: email,
+                    username: username
+                };
+
+                members['staff-school-codes'].push(email);
 
                 if (admin_job_codes.includes(job_code)) {
                     members['admin-job-codes'].push(email);
@@ -163,7 +181,7 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
                 }
             }
         });
-        return [members];
+        return members;
     }
 };
 

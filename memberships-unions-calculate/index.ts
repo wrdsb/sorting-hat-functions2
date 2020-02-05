@@ -76,14 +76,24 @@ const membershipsUnionsCalculate: AzureFunction = async function (context: Conte
     context.done(null, logBlob);
 
     async function parseMembers(members) {
-        let create_blob_results = [];
+        let createBlobResults = [];
+
         Object.getOwnPropertyNames(members).forEach(async function(group_slug) {
-            let blob_name = group_slug +'.json';
-            let memberships = JSON.stringify(members[group_slug]);
-            let result = await createBlob(blobStorageAccount, blobStorageKey, blobStorageContainer, blob_name, memberships);
-            create_blob_results.push(result);
+            let blobName = group_slug +'.json';
+            let memberships = members[group_slug];
+            let uniqueMemberships = new Set(memberships);
+            let blobContent = JSON.stringify([...uniqueMemberships]);
+            let result = await createBlob(
+                blobStorageAccount,
+                blobStorageKey,
+                blobStorageContainer,
+                blobName,
+                blobContent
+            );
+            createBlobResults.push(result);
         });
-        return create_blob_results;
+
+        return createBlobResults;
     }
 
     async function calculateMembers (rows) {
