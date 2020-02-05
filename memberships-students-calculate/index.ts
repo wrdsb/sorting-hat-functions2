@@ -87,28 +87,16 @@ const membershipsStudentsCalculate: AzureFunction = async function (context: Con
                 let oyap = (student.student_oyap === 'Y') ? true : false;
 
                 if (!members[school_code]) {
-                    members[school_code] = {};
+                    members[school_code] = [];
                 }
                 if (!members['oyap']) {
-                    members['oyap'] = {};
+                    members['oyap'] = [];
                 }
 
-                members[school_code][email] = {
-                    email:          email,
-                    role:           "MEMBER",
-                    status:         "ACTIVE",
-                    type:           "USER",
-                    groupKey:       school_code + '-students@wrdsb.ca'
-                };
+                members[school_code].push(email);
         
                 if (oyap) {
-                    members['oyap'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'oyap-students@wrdsb.ca'
-                    };
+                    members['oyap'].push(email);
                 }
             }
         });
