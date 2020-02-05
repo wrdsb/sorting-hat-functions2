@@ -28,40 +28,39 @@ const membershipsOneOffsCalculate: AzureFunction = async function (context: Cont
     const blobStorageKey = process.env['storageKey'];
     const blobStorageContainer = 'set-memberships-now';
 
-    const admissions_qna_job_codes = context.bindings.admissionsQnaJobCodes.job_codes;
-    const dece_staff_group_codes = context.bindings.deceStaffGroupCodes.group_codes;
-    const ea_staff_job_codes = context.bindings.eaStaffJobCodes.job_codes;
-    const ed_deployment_manager_job_codes = context.bindings.edDeploymentManagerJobCodes.job_codes;
-    const ed_deployment_member_job_codes = context.bindings.edDeploymentMemberJobCodes.job_codes;
-    const ed_inquiries_job_codes = context.bindings.edInquiriesJobCodes.job_codes;
-    const edc_location_codes = context.bindings.edcLocationCodes.location_codes;
-    const elementary_serts_job_codes = context.bindings.elementarySertsJobCodes.job_codes;
-    const finance_job_codes = context.bindings.financeJobCodes.job_codes;
-    const finance_location_codes = context.bindings.financeLocationCodes.location_codes;
-    const grc_health_safety_location_codes = context.bindings.grcHealthSafetyLocationCodes.location_codes;
-    const itinerant_spec_ed_job_codes = context.bindings.itinerantSpecEdJobCodes.job_codes;
-    const itinerant_spec_ed_location_codes = context.bindings.itinerantSpecEdLocationCodes.location_codes;
-    const its_job_codes = context.bindings.itsJobCodes.job_codes;
-    const its_location_codes = context.bindings.itsLocationCodes.job_codes;
-    const its_staff_managers_job_codes = context.bindings.itsManagerCodes.job_codes;
-    const procurement_qna_job_codes = context.bindings.procurementQnaJobCodes.job_codes;
-    const psychologists_job_codes = context.bindings.psychologistsJobCodes.job_codes;
-    const risk_job_codes = context.bindings.riskJobCodes.job_codes;
-    const school_day_job_codes = context.bindings.schoolDayJobCodes.job_codes;
-    const secondary_serts_job_codes = context.bindings.secondarySertsJobCodes.job_codes;
-    const smaca_elementary_group_codes = context.bindings.smacaElementaryGroupCodes.group_codes;
-    const smaca_secondary_group_codes = context.bindings.smacaSecondaryGroupCodes.group_codes;
-    const social_workers_job_codes = context.bindings.socialWorkersJobCodes.job_codes;
-    const special_education_location_codes = context.bindings.specialEducationLocationCodes.location_codes;
-    const special_education_consultants_job_codes = context.bindings.specialEducationConsultantsJobCodes.job_codes;
-    const speech_language_job_codes = context.bindings.speechLanguageJobCodes.job_codes;
-    const system_leaders_job_codes = context.bindings.systemLeadersJobCodes.job_codes;
-    const thr_message_board_job_codes = context.bindings.thrMessageBoardJobCodes.job_codes;
-    const twea_job_codes = context.bindings.tweaJobCodes.job_codes;
-    const wrdsb_managers_job_codes = context.bindings.wrdsbManagersJobCodes.job_codes;
-    const intranet_its_location_codes = context.bindings.itsJobCodes.job_codes;
-    const intranet_library_job_codes = context.bindings.intranetLibraryJobCodes.job_codes;
-    const intranet_trillium_job_codes = context.bindings.intranetTrilliumJobCodes.job_codes;
+    const admissions_qna_job_codes = context.bindings.admissionsQnaJobCodes.definition;
+    const dece_staff_group_codes = context.bindings.deceStaffGroupCodes.definition;
+    const ea_staff_job_codes = context.bindings.eaStaffJobCodes.definition;
+    const ed_deployment_manager_job_codes = context.bindings.edDeploymentManagerJobCodes.definition;
+    const ed_deployment_member_job_codes = context.bindings.edDeploymentMemberJobCodes.definition;
+    const ed_inquiries_job_codes = context.bindings.edInquiriesJobCodes.definition;
+    const edc_location_codes = context.bindings.edcLocationCodes.definition;
+    const elementary_serts_job_codes = context.bindings.elementarySertsJobCodes.definition;
+    const finance_job_codes = context.bindings.financeJobCodes.definition;
+    const finance_location_codes = context.bindings.financeLocationCodes.definition;
+    const grc_health_safety_location_codes = context.bindings.grcHealthSafetyLocationCodes.definition;
+    const itinerant_spec_ed_job_codes = context.bindings.itinerantSpecEdJobCodes.definition;
+    const itinerant_spec_ed_location_codes = context.bindings.itinerantSpecEdLocationCodes.definition;
+    const its_job_codes = context.bindings.itsJobCodes.definition;
+    const its_location_codes = context.bindings.itsLocationCodes.definition;
+    const its_managers_job_codes = context.bindings.itsManagersJobCodes.definition;
+    const procurement_qna_job_codes = context.bindings.procurementQnaJobCodes.definition;
+    const psychologists_job_codes = context.bindings.psychologistsJobCodes.definition;
+    const risk_job_codes = context.bindings.riskJobCodes.definition;
+    const school_day_job_codes = context.bindings.schoolDayJobCodes.definition;
+    const secondary_serts_job_codes = context.bindings.secondarySertsJobCodes.definition;
+    const smaca_elementary_group_codes = context.bindings.smacaElementaryGroupCodes.definition;
+    const smaca_secondary_group_codes = context.bindings.smacaSecondaryGroupCodes.definition;
+    const social_workers_job_codes = context.bindings.socialWorkersJobCodes.definition;
+    const special_education_location_codes = context.bindings.specialEducationLocationCodes.definition;
+    const special_education_consultants_job_codes = context.bindings.specialEducationConsultantsJobCodes.definition;
+    const speech_language_job_codes = context.bindings.speechLanguageJobCodes.definition;
+    const system_leaders_job_codes = context.bindings.systemLeadersJobCodes.definition;
+    const thr_message_board_job_codes = context.bindings.thrMessageBoardJobCodes.definition;
+    const twea_job_codes = context.bindings.tweaJobCodes.definition;
+    const wrdsb_managers_job_codes = context.bindings.wrdsbManagersJobCodes.definition;
+    const intranet_library_job_codes = context.bindings.intranetLibraryJobCodes.definition;
+    const intranet_trillium_job_codes = context.bindings.intranetTrilliumJobCodes.definition;
 
     const rows = context.bindings.iamwpRaw;
 
@@ -116,6 +115,41 @@ const membershipsOneOffsCalculate: AzureFunction = async function (context: Cont
 
     async function calculateMembers (rows) {
         let members = {};
+        members['admissions-qna-job-codes'] = [];
+        members['dece-staff-group-codes'] = [];
+        members['ea-staff-job-codes'] = [];
+        members['ed-deployment-manager-job-codes'] = [];
+        members['ed-deployment-member-job-codes'] = [];
+        members['ed-inquiries-job-codes'] = [];
+        members['edc-location-codes'] = [];
+        members['elementary-serts-job-codes'] = [];
+        members['finance-job-codes'] = [];
+        members['finance-location-codes'] = [];
+        members['grc-health-safety-location-codes'] = [];
+        members['intranet-library-job-codes'] = [];
+        members['elementary-serts-job-codes'] = [];
+        members['secondary-serts-job-codes'] = [];
+        members['special-education-consultants-job-codes'] = [];
+        members['intranet-trillium-job-codes'] = [];
+        members['itinerant-spec-ed-job-codes'] = [];
+        members['its-job-codes'] = [];
+        members['its-location-codes'] = [];
+        members['its-managers-job-codes'] = [];
+        members['procurement-qna-job-codes'] = [];
+        members['psychologists-job-codes'] = [];
+        members['risk-job-codes'] = [];
+        members['school-day-job-codes'] = [];
+        members['secondary-serts-job-codes'] = [];
+        members['smaca-elementary-group-codes'] = [];
+        members['smaca-secondary-group-codes'] = [];
+        members['social-workers-job-codes'] = [];
+        members['special-education-location-codes'] = [];
+        members['special-education-consultants-job-codes'] = [];
+        members['speech-language-job-codes'] = [];
+        members['system-leaders-job-codes'] = [];
+        members['thr-message-board-job-codes'] = [];
+        members['twea-job-codes'] = [];
+        members['wrdsb-managers-job-codes'] = [];
 
         rows.forEach(function(row) {
             if (row.EMAIL_ADDRESS
@@ -127,442 +161,116 @@ const membershipsOneOffsCalculate: AzureFunction = async function (context: Cont
                 && activity_codes.includes(row.ACTIVITY_CODE)
             ) {
                 let email = row.EMAIL_ADDRESS;
-                let job_code = row.JOB_CODE;
-                let group_code = row.EMP_GROUP_CODE;
-                let location_code = row.LOCATION_CODE;
+                let job_code = 'JC-' + row.JOB_CODE;
+                let group_code = 'GC-' + row.EMP_GROUP_CODE;
+                let location_code = 'LC-' + row.LOCATION_CODE;
                 let panel = row.PANEL;
+                let activity_code = row.ACTIVITY_CODE;
 
                 if (admissions_qna_job_codes.includes(job_code)) {
-                    if (!members['admissions-qna']) {
-                        members['admissions-qna'] = {};
-                    }
-                    members['admissions-qna'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "admissions-qna@wrdsb.ca"
-                    };
+                    members['admissions-qna-job-codes'].push(email);
                 }
                 if (dece_staff_group_codes.includes(group_code)) {
-                    if (!members['dece-staff']) {
-                        members['dece-staff'] = {};
-                    }
-                    members['dece-staff'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "dece-staff@wrdsb.ca"
-                    };
+                    members['dece-staff-group-codes'].push(email);
                 }
                 if (ea_staff_job_codes.includes(job_code)) {
-                    if (!members['ea-staff']) {
-                        members['ea-staff'] = {};
-                    }
-                    members['ea-staff'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "ea-staff@wrdsb.ca"
-                    };
+                    members['ea-staff-job-codes'].push(email);
                 }
                 if (ed_deployment_manager_job_codes.includes(job_code)) {
-                    if (!members['ed-deployment']) {
-                        members['ed-deployment'] = {};
-                    }
-                    members['ed-deployment'][email] = {
-                        email:          email,
-                        role:           "MANAGER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "ed-deployment@wrdsb.ca"
-                    };
+                    members['ed-deployment-manager-job-codes'].push(email);
                 }
                 if (ed_deployment_member_job_codes.includes(job_code)) {
-                    if (!members['ed-deployment']) {
-                        members['ed-deployment'] = {};
-                    }
-                    members['ed-deployment'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "ed-deployment@wrdsb.ca"
-                    };
+                    members['ed-deployment-member-job-codes'].push(email);
                 }
                 if (ed_inquiries_job_codes.includes(job_code)) {
-                    if (!members['ed-inquiries']) {
-                        members['ed-inquiries'] = {};
-                    }
-                    members['ed-inquiries'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "ed-inquiries@wrdsb.ca"
-                    };
+                    members['ed-inquiries-job-codes'].push(email);
                 }
                 if (edc_location_codes.includes(location_code)) {
-                    if (!members['edc-staff']) {
-                        members['edc-staff'] = {};
-                    }
-                    members['edc-staff'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'edc-staff@wrdsb.ca'
-                    };
+                    members['edc-location-codes'].push(email);
                 }
                 if (elementary_serts_job_codes.includes(job_code) && panel == 'E') {
-                    if (!members['elementary-serts']) {
-                        members['elementary-serts'] = {};
-                    }
-                    members['elementary-serts'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "elementary-serts@wrdsb.ca"
-                    };
+                    members['elementary-serts-job-codes'].push(email);
                 }
                 if (finance_job_codes.includes(job_code)) {
-                    if (!members['finance-staff']) {
-                        members['finance-staff'] = {};
-                    }
-                    members['finance-staff'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'finance-staff@wrdsb.ca'
-                    };
+                    members['finance-job-codes'].push(email);
                 }
                 if (finance_location_codes.includes(location_code)) {
-                    if (!members['finance-staff']) {
-                        members['finance-staff'] = {};
-                    }
-                    members['finance-staff'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'finance-staff@wrdsb.ca'
-                    };
+                    members['finance-location-codes'].push(email);
                 }
                 if (grc_health_safety_location_codes.includes(location_code)) {
-                    if (!members['grc-health-safety']) {
-                        members['grc-health-safety'] = {};
-                    }
-                    members['grc-health-safety'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'grc-health-safety@wrdsb.ca'
-                    };
+                    members['grc-health-safety-location-codes'].push(email);
                 }
-                //if (intranet_its_job_codes.includes(job_code)) {
-                    //if (!members['intranet-its']) {
-                        //members['intranet-its'] = {};
-                    //}
-                    //members['intranet-its'][email] = {
-                        //email:          email,
-                        //role:           "MEMBER",
-                        //status:         "ACTIVE",
-                        //type:           "USER",
-                        //groupKey:       'intranet-its@wrdsb.ca'
-                    //};
-                //}
                 if (intranet_library_job_codes.includes(job_code)) {
-                    if (!members['intranet-library']) {
-                        members['intranet-library'] = {};
-                    }
-                    members['intranet-library'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "intranet-library@wrdsb.ca"
-                    };
+                    members['intranet-library-job-codes'].push(email);
                 }
                 if (elementary_serts_job_codes.includes(job_code) && panel == 'E') {
-                    if (!members['intranet-special-education']) {
-                        members['intranet-special-education'] = {};
-                    }
-                    members['intranet-special-education'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "intranet-special-education@wrdsb.ca"
-                    };
+                    members['elementary-serts-job-codes'].push(email);
                 }
                 if (secondary_serts_job_codes.includes(job_code) && panel == 'S') {
-                    if (!members['intranet-special-education']) {
-                        members['intranet-special-education'] = {};
-                    }
-                    members['intranet-special-education'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "intranet-special-education@wrdsb.ca"
-                    };
+                    members['secondary-serts-job-codes'].push(email);
                 }
                 if (special_education_consultants_job_codes.includes(job_code)) {
-                    if (!members['intranet-special-education']) {
-                        members['intranet-special-education'] = {};
-                    }
-                    members['intranet-special-education'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "intranet-special-education@wrdsb.ca"
-                    };
+                    members['special-education-consultants-job-codes'].push(email);
                 }
                 if (intranet_trillium_job_codes.includes(job_code)) {
-                    if (!members['intranet-trillium']) {
-                        members['intranet-trillium'] = {};
-                    }
-                    members['intranet-trillium'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "intranet-trillium@wrdsb.ca"
-                    };
+                    members['intranet-trillium-job-codes'].push(email);
                 }
                 if (itinerant_spec_ed_job_codes.includes(job_code) && itinerant_spec_ed_location_codes.includes(location_code)) {
-                    if (!members['itinerant-spec-ed']) {
-                        members['itinerant-spec-ed'] = {};
-                    }
-                    members['itinerant-spec-ed'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "itinerant-spec-ed@wrdsb.ca"
-                    };
+                    members['itinerant-spec-ed-job-codes'].push(email);
                 }
                 if (its_job_codes.includes(job_code)) {
-                    if (!members['its-staff']) {
-                        members['its-staff'] = {};
-                    }
-                    members['its-staff'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'its-staff@wrdsb.ca'
-                    };
+                    members['its-job-codes'].push(email);
                 }
                 if (its_location_codes.includes(location_code)) {
-                    if (!members['its-staff']) {
-                        members['its-staff'] = {};
-                    }
-                    members['its-staff'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'its-staff@wrdsb.ca'
-                    };
+                    members['its-location-codes'].push(email);
                 }
-                if (its_staff_managers_job_codes.includes(job_code)) {
-                    if (!members['its-staff']) {
-                        members['its-staff'] = {};
-                    }
-                    members['its-staff'][email] = {
-                        email:          email,
-                        role:           "MANAGER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'its-staff@wrdsb.ca'
-                    };
+                if (its_managers_job_codes.includes(job_code)) {
+                    members['its-managers-job-codes'].push(email);
                 }
                 if (procurement_qna_job_codes.includes(job_code)) {
-                    if (!members['procurement-qna']) {
-                        members['procurement-qna'] = {};
-                    }
-                    members['procurement-qna'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "procurement-qna@wrdsb.ca"
-                    };
+                    members['procurement-qna-job-codes'].push(email);
                 }
                 if (psychologists_job_codes.includes(job_code)) {
-                    if (!members['psychologists']) {
-                        members['psychologists'] = {};
-                    }
-                    members['psychologists'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "psychologists@wrdsb.ca"
-                    };
+                    members['psychologists-job-codes'].push(email);
                 }
                 if (risk_job_codes.includes(job_code)) {
-                    if (!members['risk']) {
-                        members['risk'] = {};
-                    }
-                    members['risk'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "risk@wrdsb.ca"
-                    };
+                    members['risk-job-codes'].push(email);
                 }
                 if (school_day_job_codes.includes(job_code)) {
-                    if (!members['school-day']) {
-                        members['school-day'] = {};
-                    }
-                    members['school-day'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "school-day@wrdsb.ca"
-                    };
+                    members['school-day-job-codes'].push(email);
                 }
                 if (secondary_serts_job_codes.includes(job_code) && panel == 'S') {
-                    if (!members['secondary-serts']) {
-                        members['secondary-serts'] = {};
-                    }
-                    members['secondary-serts'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "secondary-serts@wrdsb.ca"
-                    };
+                    members['secondary-serts-job-codes'].push(email);
                 }
                 if (smaca_elementary_group_codes.includes(group_code) && panel == 'E') {
-                    if (!members['smaca-elementary-qna']) {
-                        members['smaca-elementary-qna'] = {};
-                    }
-                    members['smaca-elementary-qna'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'smaca-elementary-qna@wrdsb.ca'
-                    };
+                    members['smaca-elementary-group-codes'].push(email);
                 }
                 if (smaca_secondary_group_codes.includes(group_code) && panel == 'S') {
-                    if (!members['smaca-secondary-qna']) {
-                        members['smaca-secondary-qna'] = {};
-                    }
-                    members['smaca-secondary-qna'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'smaca-secondary-qna@wrdsb.ca'
-                    }
+                    members['smaca-secondary-group-codes'].push(email);
                 }
                 if (social_workers_job_codes.includes(job_code)) {
-                    if (!members['social-workers']) {
-                        members['social-workers'] = {};
-                    }
-                    members['social-workers'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "social-workers@wrdsb.ca"
-                    };
+                    members['social-workers-job-codes'].push(email);
                 }
                 if (special_education_location_codes.includes(location_code)) {
-                    if (!members['special-education']) {
-                        members['special-education'] = {};
-                    }
-                    members['special-education'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "special-education@wrdsb.ca"
-                    };
+                    members['special-education-location-codes'].push(email);
                 }
                 if (special_education_consultants_job_codes.includes(job_code)) {
-                    if (!members['special-education-consultants']) {
-                        members['special-education-consultants'] = {};
-                    }
-                    members['special-education-consultants'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "special-education-consultants@wrdsb.ca"
-                    };
+                    members['special-education-consultants-job-codes'].push(email);
                 }
                 if (speech_language_job_codes.includes(job_code)) {
-                    if (!members['speech-language']) {
-                        members['speech-language'] = {};
-                    }
-                    members['speech-language'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "speech-language@wrdsb.ca"
-                    };
+                    members['speech-language-job-codes'].push(email);
                 }
                 if (system_leaders_job_codes.includes(job_code)) {
-                    if (!members['system-leaders']) {
-                        members['system-leaders'] = {};
-                    }
-                    members['system-leaders'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'system-leaders@wrdsb.ca'
-                    };
+                    members['system-leaders-job-codes'].push(email);
                 }
                 if (thr_message_board_job_codes.includes(job_code)) {
-                    if (!members['thr-message-board']) {
-                        members['thr-message-board'] = {};
-                    }
-                    members['thr-message-board'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "thr-message-board@wrdsb.ca"
-                    };
+                    members['thr-message-board-job-codes'].push(email);
                 }
                 if (twea_job_codes.includes(job_code)) {
-                    if (!members['twea']) {
-                        members['twea'] = {};
-                    }
-                    members['twea'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "twea@wrdsb.ca"
-                    };
+                    members['twea-job-codes'].push(email);
                 }
                 if (wrdsb_managers_job_codes.includes(job_code)) {
-                    if (!members['wrdsb-managers']) {
-                        members['wrdsb-managers'] = {};
-                    }
-                    members['wrdsb-managers'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "wrdsb-managers@wrdsb.ca"
-                    };
+                    members['wrdsb-managers-job-codes'].push(email);
                 }
             }
         });
