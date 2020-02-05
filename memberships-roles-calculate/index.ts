@@ -117,8 +117,8 @@ const membershipsRolesCalculate: AzureFunction = async function (context: Contex
                 && activity_codes.includes(row.ACTIVITY_CODE)
             ) {
                 let email = row.EMAIL_ADDRESS;
-                let job_code = row.JOB_CODE;
-                let group_code = row.EMP_GROUP_CODE;
+                let job_code = 'JC-' + row.JOB_CODE;
+                let group_code = 'GC-' + row.EMP_GROUP_CODE;
 
                 if (elementary_admin_job_codes.includes(job_code)) {
                     members['elementary-admin-job-codes'].push(email);
