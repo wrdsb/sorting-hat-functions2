@@ -28,22 +28,19 @@ const membershipsRolesCalculate: AzureFunction = async function (context: Contex
     const blobStorageKey = process.env['storageKey'];
     const blobStorageContainer = 'set-memberships-now';
 
-    const elementary_admin_job_codes = context.bindings.elementaryAdminJobCodes.job_codes;
-    const elementary_head_secretaries_job_codes = context.bindings.elementaryHeadSecretariesJobCodes.job_codes;
-    const elementary_c_secretaries_job_codes = context.bindings.elementaryCSecretariesJobCodes.job_codes;
-    const elementary_teachers_group_codes = context.bindings.elementaryTeachersGroupCodes.group_codes;
-    const elementary_ot_teachers_job_codes = context.bindings.elementaryOtTeachersJobCodes.job_codes;
-    const elementary_staffing_support_job_codes = context.bindings.elementaryStaffingSupportJobCodes.job_codes;
+    const elementary_admin_job_codes = context.bindings.elementaryAdminJobCodes.definition;
+    const elementary_head_secretaries_job_codes = context.bindings.elementaryHeadSecretariesJobCodes.definition;
+    const elementary_c_secretaries_job_codes = context.bindings.elementaryCSecretariesJobCodes.definition;
+    const elementary_teachers_group_codes = context.bindings.elementaryTeachersGroupCodes.definition;
+    const elementary_ot_teachers_job_codes = context.bindings.elementaryOtTeachersJobCodes.definition;
+    const elementary_staffing_support_job_codes = context.bindings.elementaryStaffingSupportJobCodes.definition;
     
-    const secondary_admin_job_codes = context.bindings.secondaryAdminJobCodes.job_codes;
-    const secondary_office_supervisors_job_codes = context.bindings.secondaryOfficeSupervisorsJobCodes.job_codes;
-    const secondary_office_assistants_job_codes = context.bindings.secondaryOfficeAssistantsJobCodes.job_codes;
-    const secondary_c_secretaries_job_codes = context.bindings.secondaryCSecretariesJobCodes.job_codes;
-    const secondary_teachers_group_codes = context.bindings.secondaryTeachersGroupCodes.group_codes;
-    const secondary_ot_teachers_group_codes = context.bindings.secondaryOtTeachersGroupCodes.group_codes;
-
-    //const secondary_staffing_support_job_codes = context.bindings.secondaryStaffingSupportJobCodes.job_codes;
-    //const educational_assistants_job_codes = context.bindings.educationalAssistantsJobCodes.job_codes;
+    const secondary_admin_job_codes = context.bindings.secondaryAdminJobCodes.definition;
+    const secondary_office_supervisors_job_codes = context.bindings.secondaryOfficeSupervisorsJobCodes.definition;
+    const secondary_office_assistants_job_codes = context.bindings.secondaryOfficeAssistantsJobCodes.definition;
+    const secondary_c_secretaries_job_codes = context.bindings.secondaryCSecretariesJobCodes.definition;
+    const secondary_teachers_group_codes = context.bindings.secondaryTeachersGroupCodes.definition;
+    const secondary_ot_teachers_group_codes = context.bindings.secondaryOtTeachersGroupCodes.definition;
 
     const rows = context.bindings.iamwpRaw;
 
@@ -99,6 +96,18 @@ const membershipsRolesCalculate: AzureFunction = async function (context: Contex
 
     async function calculateMembers (rows) {
         let members = {};
+        members['elementary-admin-job-codes'] = [];
+        members['elementary-head-secretaries-job-codes'] = [];
+        members['elementary-c-secretaries-job-codes'] = [];
+        members['elementary-teachers-group-codes'] = [];
+        members['elementary-ot-teachers-job-codes'] = [];
+        members['elementary-staffing-support-job-codes'] = [];
+        members['secondary-admin-job-codes'] = [];
+        members['secondary-office-supervisors-job-codes'] = [];
+        members['secondary-office-assistants-job-codes'] = [];
+        members['secondary-c-secretaries-job-codes'] = [];
+        members['secondary-teachers-group-codes'] = [];
+        members['secondary-ot-teachers-group-codes'] = [];
 
         rows.forEach(function(row) {
             if (row.EMAIL_ADDRESS
@@ -112,173 +121,52 @@ const membershipsRolesCalculate: AzureFunction = async function (context: Contex
                 let group_code = row.EMP_GROUP_CODE;
 
                 if (elementary_admin_job_codes.includes(job_code)) {
-                    if (!members['elementary-admin']) {
-                        members['elementary-admin'] = {};
-                    }
-                    members['elementary-admin'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "elementary-admin@wrdsb.ca"
-                    };
+                    members['elementary-admin-job-codes'].push(email);
                 }
                 
                 if (elementary_head_secretaries_job_codes.includes(job_code)) {
-                    if (!members['elementary-head-secretaries']) {
-                        members['elementary-head-secretaries'] = {};
-                    }
-                    members['elementary-head-secretaries'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "elementary-head-secretaries@wrdsb.ca"
-                    };
+                    members['elementary-head-secretaries-job-codes'].push(email);
                 }
                 
                 if (elementary_c_secretaries_job_codes.includes(job_code)) {
-                    if (!members['elementary-c-secretaries']) {
-                        members['elementary-c-secretaries'] = {};
-                    }
-                    members['elementary-c-secretaries'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "elementary-c-secretaries@wrdsb.ca"
-                    };
+                    members['elementary-c-secretaries-job-codes'].push(email);
                 }
                 
                 if (elementary_teachers_group_codes.includes(group_code)) {
-                    if (!members['elementary-teachers']) {
-                        members['elementary-teachers'] = {};
-                    }
-                    members['elementary-teachers'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "elementary-teachers@wrdsb.ca"
-                    };
+                    members['elementary-teachers-group-codes'].push(email);
                 }
                 
                 if (elementary_ot_teachers_job_codes.includes(job_code)) {
-                    if (!members['elementary-ot-teachers']) {
-                        members['elementary-ot-teachers'] = {};
-                    }
-                    members['elementary-ot-teachers'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "elementary-ot-teachers@wrdsb.ca"
-                    };
+                    members['elementary-ot-teachers-job-codes'].push(email);
                 }
                 
                 if (elementary_staffing_support_job_codes.includes(job_code)) {
-                    if (!members['elementary-staffing-support']) {
-                        members['elementary-staffing-support'] = {};
-                    }
-                    members['elementary-staffing-support'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'elementary-staffing-support@wrdsb.ca'
-                    };
+                    members['elementary-staffing-support-job-codes'].push(email);
                 }
                 
                 if (secondary_admin_job_codes.includes(job_code)) {
-                    if (!members['secondary-admin']) {
-                        members['secondary-admin'] = {};
-                    }
-                    members['secondary-admin'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "secondary-admin@wrdsb.ca"
-                    };
+                    members['secondary-admin-job-codes'].push(email);
                 }
                 
                 if (secondary_office_supervisors_job_codes.includes(job_code)) {
-                    if (!members['secondary-office-supervisors']) {
-                        members['secondary-office-supervisors'] = {};
-                    }
-                    members['secondary-office-supervisors'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "secondary-office-supervisors@wrdsb.ca"
-                    };
+                    members['secondary-office-supervisors-job-codes'].push(email);
                 }
                 
                 if (secondary_office_assistants_job_codes.includes(job_code)) {
-                    if (!members['secondary-office-assistants']) {
-                        members['secondary-office-assistants'] = {};
-                    }
-                    members['secondary-office-assistants'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "secondary-office-assistants@wrdsb.ca"
-                    };
+                    members['secondary-office-assistants-job-codes'].push(email);
                 }
                 
                 if (secondary_c_secretaries_job_codes.includes(job_code)) {
-                    if (!members['secondary-c-secretaries']) {
-                        members['secondary-c-secretaries'] = {};
-                    }
-                    members['secondary-c-secretaries'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "secondary-c-secretaries@wrdsb.ca"
-                    };
+                    members['secondary-c-secretaries-job-codes'].push(email);
                 }
                 
                 if (secondary_teachers_group_codes.includes(group_code)) {
-                    if (!members['secondary-teachers']) {
-                        members['secondary-teachers'] = {};
-                    }
-                    members['secondary-teachers'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "secondary-teachers@wrdsb.ca"
-                    };
+                    members['secondary-teachers-group-codes'].push(email);
                 }
                 
                 if (secondary_ot_teachers_group_codes.includes(group_code)) {
-                    if (!members['secondary-ot-teachers']) {
-                        members['secondary-ot-teachers'] = {};
-                    }
-                    members['secondary-ot-teachers'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       "secondary-ot-teachers@wrdsb.ca"
-                    };
+                    members['secondary-ot-teachers-group-codes'].push(email);
                 }
-
-                //if (educational_assistants_job_codes.includes(job_code)) {
-                    //if (!members['educational-assistants']) {
-                        //members['educational-assistants'] = {};
-                    //}
-                    //members['educational-assistants'][email] = {
-                        //email:          email,
-                        //role:           "MEMBER",
-                        //status:         "ACTIVE",
-                        //type:           "USER",
-                        //groupKey:       "educational-assistants@wrdsb.ca"
-                    //};
-                //}
             }
         });
         return members;
