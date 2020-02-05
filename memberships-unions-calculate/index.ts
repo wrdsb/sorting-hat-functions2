@@ -28,21 +28,21 @@ const membershipsUnionsCalculate: AzureFunction = async function (context: Conte
     const blobStorageKey = process.env['storageKey'];
     const blobStorageContainer = 'set-memberships-now';
 
-    const cama_group_codes = context.bindings.camaGroupCodes.group_codes;
-    const cyw_job_codes = context.bindings.cywJobCodes.job_codes;
-    const dece_group_codes = context.bindings.deceGroupCodes.group_codes;
-    const dece_excluded_job_codes = context.bindings.deceExcludedJobCodes.job_codes;
-    const dece_observer_job_codes = context.bindings.deceObserverJobCodes.job_codes;
-    const eaa_group_codes = context.bindings.eaaGroupCodes.group_codes;
-    const eaa_excluded_job_codes = context.bindings.eaaExcludedJobCodes.job_codes;
-    const ess_group_codes = context.bindings.essGroupCodes.group_codes;
-    const etfo_group_codes = context.bindings.etfoGroupCodes.group_codes;
-    const osstf_contract_group_codes = context.bindings.osstfContractGroupCodes.group_codes;
-    const osstf_ot_group_codes = context.bindings.osstfOtGroupCodes.group_codes;
-    const pssp_group_codes = context.bindings.psspGroupCodes.group_codes;
-    const smaca_group_codes = context.bindings.smacaGroupCodes.group_codes;
-    const smaca_elementary_group_codes = context.bindings.smacaElementaryGroupCodes.group_codes;
-    const smaca_secondary_group_codes = context.bindings.smacaSecondaryGroupCodes.group_codes;
+    const cama_group_codes = context.bindings.camaGroupCodes.definition;
+    const cyw_job_codes = context.bindings.cywJobCodes.definition;
+    const dece_group_codes = context.bindings.deceGroupCodes.definition;
+    const dece_excluded_job_codes = context.bindings.deceExcludedJobCodes.definition;
+    const dece_observer_job_codes = context.bindings.deceObserverJobCodes.definition;
+    const eaa_group_codes = context.bindings.eaaGroupCodes.definition;
+    const eaa_excluded_job_codes = context.bindings.eaaExcludedJobCodes.definition;
+    const ess_group_codes = context.bindings.essGroupCodes.definition;
+    const etfo_group_codes = context.bindings.etfoGroupCodes.definition;
+    const osstf_contract_group_codes = context.bindings.osstfContractGroupCodes.definition;
+    const osstf_ot_group_codes = context.bindings.osstfOtGroupCodes.definition;
+    const pssp_group_codes = context.bindings.psspGroupCodes.definition;
+    const smaca_group_codes = context.bindings.smacaGroupCodes.definition;
+    const smaca_elementary_group_codes = context.bindings.smacaElementaryGroupCodes.definition;
+    const smaca_secondary_group_codes = context.bindings.smacaSecondaryGroupCodes.definition;
 
     const rows = context.bindings.iamwpRaw;
 
@@ -98,6 +98,23 @@ const membershipsUnionsCalculate: AzureFunction = async function (context: Conte
 
     async function calculateMembers (rows) {
         let members = {};
+        members['cama-group-codes'] = [];
+        members['cyw-job-codes'] = [];
+        members['cyw-elementary-job-codes'] = [];
+        members['cyw-secondary-job-codes'] = [];
+        members['dece-group-codes'] = [];
+        members['dece-observer-job-codes'] = [];
+        members['eaa-group-codes'] = [];
+        members['eaa-elementary-group-codes'] = [];
+        members['eaa-secondary-group-codes'] = [];
+        members['ess-group-codes'] = [];
+        members['etfo-group-codes'] = [];
+        members['osstf-contract-group-codes'] = [];
+        members['osstf-ot-group-codes'] = [];
+        members['pssp-group-codes'] = [];
+        members['smaca-group-codes'] = [];
+        members['smaca-elementary-group-codes'] = [];
+        members['smaca-secondary-group-codes'] = [];
 
         rows.forEach(function(row) {
             if (row.EMAIL_ADDRESS
@@ -108,240 +125,74 @@ const membershipsUnionsCalculate: AzureFunction = async function (context: Conte
                 && activity_codes.includes(row.ACTIVITY_CODE)
             ) {
                 let email = row.EMAIL_ADDRESS;
-                let job_code = row.JOB_CODE;
-                let group_code = row.EMP_GROUP_CODE;
+                let job_code = 'JC-' + row.JOB_CODE;
+                let group_code = 'GC-' + row.EMP_GROUP_CODE;
                 let panel = row.PANEL;
 
                 if (cama_group_codes.includes(group_code)) {
-                    if (!members['cama']) {
-                        members['cama'] = {};
-                    }
-                    members['cama'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'cama@wrdsb.ca'
-                    };
+                    members['cama-group-codes'].push(email);
                 }
 
                 if (cyw_job_codes.includes(job_code)) {
-                    if (!members['cyw']) {
-                        members['cyw'] = {};
-                    }
-                    members['cyw'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'cyw@wrdsb.ca'
-                    };
+                    members['cyw-job-codes'].push(email);
                 }
 
                 if (cyw_job_codes.includes(job_code) && panel == 'E') {
-                    if (!members['cyw-elementary']) {
-                        members['cyw-elementary'] = {};
-                    }
-                    members['cyw-elementary'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'cyw-elementary@wrdsb.ca'
-                    };
+                    members['cyw-elementary-job-codes'].push(email);
                 }
 
                 if (cyw_job_codes.includes(job_code) && panel == 'S') {
-                    if (!members['cyw-secondary']) {
-                        members['cyw-secondary'] = {};
-                    }
-                    members['cyw-secondary'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'cyw-secondary@wrdsb.ca'
-                    };
+                    members['cyw-secondary-job-codes'].push(email);
                 }
         
-                //if (dece_group_codes.includes(group_code) && !dece_excluded_job_codes.includes(job_code)) {
-                    //if (!members['dece']) {
-                        //members['dece'] = {};
-                    //}
-                    //members['dece'][email] = {
-                        //email:          email,
-                        //role:           "MEMBER",
-                        //status:         "ACTIVE",
-                        //type:           "USER",
-                        //groupKey:       'dece@wrdsb.ca'
-                    //};
-                //}
-
                 if (dece_group_codes.includes(group_code) && !dece_excluded_job_codes.includes(job_code)) {
-                    if (!members['dece-info']) {
-                        members['dece-info'] = {};
-                    }
-                    members['dece-info'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'dece-info@wrdsb.ca'
-                    };
+                    members['dece-group-codes'].push(email);
                 }
 
                 if (dece_observer_job_codes.includes(job_code)) {
-                    if (!members['dece-info']) {
-                        members['dece-info'] = {};
-                    }
-                    members['dece-info'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'dece-info@wrdsb.ca'
-                    };
+                    members['dece-observer-job-codes'].push(email);
                 }
 
                 if (eaa_group_codes.includes(group_code) && !eaa_excluded_job_codes.includes(job_code)) {
-                    if (!members['eaa']) {
-                        members['eaa'] = {};
-                    }
-                    members['eaa'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'eaa@wrdsb.ca'
-                    };
+                    members['eaa-group-codes'].push(email);
                     if (panel == 'E') {
-                        if (!members['eaa-elementary']) {
-                            members['eaa-elementary'] = {};
-                        }
-                        members['eaa-elementary'][email] = {
-                            email:          email,
-                            role:           "MEMBER",
-                            status:         "ACTIVE",
-                            type:           "USER",
-                            groupKey:       'eaa-elementary@wrdsb.ca'
-                        };
+                        members['eaa-elementary-group-codes'].push(email);
                     }
                     if (panel == 'S') {
-                        if (!members['eaa-secondary']) {
-                            members['eaa-secondary'] = {};
-                        }
-                        members['eaa-secondary'][email] = {
-                            email:          email,
-                            role:           "MEMBER",
-                            status:         "ACTIVE",
-                            type:           "USER",
-                            groupKey:       'eaa-secondary@wrdsb.ca'
-                        };
+                        members['eaa-secondary-group-codes'].push(email);
                     }
                 }
 
                 if (ess_group_codes.includes(group_code)) {
-                    if (!members['ess']) {
-                        members['ess'] = {};
-                    }
-                    members['ess'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'ess@wrdsb.ca'
-                    };
+                    members['ess-group-codes'].push(email);
                 }
 
                 if (etfo_group_codes.includes(group_code)) {
-                    if (!members['etfo']) {
-                        members['etfo'] = {};
-                    }
-                    members['etfo'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'etfo@wrdsb.ca'
-                    };
+                    members['etfo-group-codes'].push(email);
                 }
 
                 if (osstf_contract_group_codes.includes(group_code)) {
-                    if (!members['osstf-contract']) {
-                        members['osstf-contract'] = {};
-                    }
-                    members['osstf-contract'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'osstf-contract@wrdsb.ca'
-                    };
+                    members['osstf-contract-group-codes'].push(email);
                 }
 
                 if (osstf_ot_group_codes.includes(group_code)) {
-                    if (!members['osstf-ot']) {
-                        members['osstf-ot'] = {};
-                    }
-                    members['osstf-ot'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'osstf-ot@wrdsb.ca'
-                    };
+                    members['osstf-ot-group-codes'].push(email);
                 }
 
                 if (pssp_group_codes.includes(group_code)) {
-                    if (!members['pssp']) {
-                        members['pssp'] = {};
-                    }
-                    members['pssp'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'pssp@wrdsb.ca'
-                    };
+                    members['pssp-group-codes'].push(email);
                 }
 
                 if (smaca_group_codes.includes(group_code)) {
-                    if (!members['smaca']) {
-                        members['smaca'] = {};
-                    }
-                    members['smaca'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'smaca@wrdsb.ca'
-                    };
+                    members['smaca-group-codes'].push(email);
                 }
 
                 if (smaca_elementary_group_codes.includes(group_code) && panel == 'E') {
-                    if (!members['smaca-elementary']) {
-                        members['smaca-elementary'] = {};
-                    }
-                    members['smaca-elementary'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'smaca-elementary@wrdsb.ca'
-                    };
+                    members['smaca-elementary-group-codes'].push(email);
                 }
 
                 if (smaca_secondary_group_codes.includes(group_code) && panel == 'S') {
-                    if (!members['smaca-secondary']) {
-                        members['smaca-secondary'] = {};
-                    }
-                    members['smaca-secondary'][email] = {
-                        email:          email,
-                        role:           "MEMBER",
-                        status:         "ACTIVE",
-                        type:           "USER",
-                        groupKey:       'smaca-secondary@wrdsb.ca'
-                    };
+                    members['smaca-secondary-group-codes'].push(email);
                 }
             }
         });
