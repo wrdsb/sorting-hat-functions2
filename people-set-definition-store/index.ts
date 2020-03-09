@@ -51,6 +51,11 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
             statusCode = '200';
             statusMessage = 'Success: Replaced record.';
             break;
+        case 'materialize':
+            result = doMaterialize(oldRecord);
+            statusCode = '200';
+            statusMessage = 'Success: Materialized record.';
+            break;
         default:
             break;
     }
@@ -92,6 +97,8 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
     {
         let event = {};
         let newRecord = {
+            definition: [],
+            constituent_sets: [],
             created_at: '',
             updated_at: '',
             deleted_at: '',
@@ -101,6 +108,8 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
         // check for existing record
         if (!oldRecord) {
             newRecord = Object.assign(newRecord, payload);
+            newRecord.constituent_sets = [].concat(...newRecord.definition);
+
             newRecord.created_at = functionInvocationTimestamp;
             newRecord.updated_at = functionInvocationTimestamp;
 
@@ -112,6 +121,7 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
 
         } else {
             newRecord = Object.assign(newRecord, oldRecord);
+            newRecord.constituent_sets = [].concat(...newRecord.definition);
 
             // mark the record as deleted
             newRecord.deleted_at = functionInvocationTimestamp;
@@ -127,6 +137,8 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
     {
         let event = {};
         let newRecord = {
+            definition: [],
+            constituent_sets: [],
             created_at: '',
             updated_at: '',
             deleted_at: '',
@@ -135,6 +147,8 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
 
         if (!oldRecord) {
             newRecord = Object.assign(newRecord, payload);
+            newRecord.constituent_sets = [].concat(...newRecord.definition);
+
             newRecord.created_at = functionInvocationTimestamp;
             newRecord.updated_at = functionInvocationTimestamp;
     
@@ -147,6 +161,8 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
         } else {
             // Merge request object into current record
             newRecord = Object.assign(newRecord, oldRecord, payload);
+            newRecord.constituent_sets = [].concat(...newRecord.definition);
+
             newRecord.updated_at = functionInvocationTimestamp;
     
             // patching a record implicitly undeletes it
@@ -163,6 +179,8 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
     {
         let event = {};
         let newRecord = {
+            definition: [],
+            constituent_sets: [],
             created_at: '',
             updated_at: '',
             deleted_at: '',
@@ -170,6 +188,7 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
         };
 
         newRecord = Object.assign(newRecord, payload);
+        newRecord.constituent_sets = [].concat(...newRecord.definition);
 
         if (!oldRecord) {
             newRecord.created_at = functionInvocationTimestamp;
@@ -195,12 +214,36 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
         return {event: event, newRecord: newRecord};
     }
 
+    function doMaterialize(oldRecord)
+    {
+        let newRecord = {
+            created_at: oldRecord.created_at,
+            updated_at: functionInvocationTimestamp,
+            deleted_at: oldRecord.deleted_at,
+            deleted: oldRecord.deleted,
+            id: oldRecord.id,
+            atomic: oldRecord.atomic,
+            type: oldRecord.type,
+            name: oldRecord.name,
+            short_name: oldRecord.short_name,
+            aliases: oldRecord.aliases,
+            categories: oldRecord.categories,
+            tags: oldRecord.tags,
+            definition: oldRecord.definition,
+            constituent_sets: [].concat(...oldRecord.definition)
+        };
+
+        let event = craftPeopleSetDefinitionMaterializeEvent(oldRecord, newRecord);
+
+        return {event: event, newRecord: newRecord};
+    }
+    
     function craftPeopleSetDefinitionCreateEvent(old_record, new_record)
     {
         let event_type = 'SortingHat.PeopleSetDefinition.Create';
         let source = 'create';
         let schema = 'create';
-        let label = `${new_record.email} people set definition created.`;
+        let label = `${new_record.id} people set definition created.`;
         let payload = {
             record: new_record
         };
@@ -214,7 +257,7 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
         let event_type = 'SortingHat.PeopleSetDefinition.Update';
         let source = 'update';
         let schema = 'update';
-        let label = `${new_record.email} people set definition updated.`;
+        let label = `${new_record.id} people set definition updated.`;
         let payload = {
             old_record: old_record,
             new_record: new_record,
@@ -229,9 +272,24 @@ const peopleSetDefinitionStore: AzureFunction = async function (context: Context
         let event_type = 'SortingHat.PeopleSetDefinition.Delete';
         let source = 'delete';
         let schema = 'delete';
-        let label = `${old_record.email} people set definition deleted.`;
+        let label = `${old_record.id} people set definition deleted.`;
         let payload = {
             record: old_record
+        };
+
+        let event = craftEvent(old_record.id, source, schema, event_type, label, payload);
+        return event;
+    }
+
+    function craftPeopleSetDefinitionMaterializeEvent(old_record, new_record)
+    {
+        let event_type = 'SortingHat.PeopleSetDefinition.Materialize';
+        let source = 'materialize';
+        let schema = 'materialize';
+        let label = `${old_record.id} people set definition materialized.`;
+        let payload = {
+            old_record: old_record,
+            new_record: new_record
         };
 
         let event = craftEvent(old_record.id, source, schema, event_type, label, payload);
