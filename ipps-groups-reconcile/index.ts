@@ -107,7 +107,9 @@ const ippsGroupsReconcile: AzureFunction = async function (context: Context, tri
                 short_name: groupRecord.employee_group_description,
                 aliases:    [groupRecord.employee_group_category],
                 categories: ["IPPS", "ipps-groups", "group-codes"],
-                tags:       []
+                tags:       [],
+                definition: [[`GC-${groupRecord.id}`]],
+                constituent_sets: [`GC-${groupRecord.id}`]
             };
 
             materializedGroups[materializedGroup.id] = materializedGroup;

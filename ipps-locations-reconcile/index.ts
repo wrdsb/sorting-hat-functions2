@@ -107,7 +107,9 @@ const ippsLocationsReconcile: AzureFunction = async function (context: Context, 
                 short_name: locationRecord.location_description,
                 aliases:    [],
                 categories: ["IPPS", "ipps-locations", "location-codes"],
-                tags:       []
+                tags:       [],
+                definition: [[`LC-${locationRecord.id}`]],
+                constituent_sets: [`LC-${locationRecord.id}`]
             };
 
             materializedLocations[materializedLocation.id] = materializedLocation;

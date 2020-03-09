@@ -107,7 +107,9 @@ const ippsJobsReconcile: AzureFunction = async function (context: Context, trigg
                 short_name: jobRecord.job_description,
                 aliases:    [],
                 categories: ["IPPS", "ipps-jobs", "job-codes"],
-                tags:       []
+                tags:       [],
+                definition: [[`JC-${jobRecord.id}`]],
+                constituent_sets: [`JC-${jobRecord.id}`]
             };
 
             materializedJobs[materializedJob.id] = materializedJob;
