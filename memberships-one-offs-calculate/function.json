@@ -15,6 +15,56 @@
             "direction": "in"
         },
         {
+            "name": "cywJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "cyw-job-codes",
+            "partitionKey": "cyw-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "deceGroupCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "dece-group-codes",
+            "partitionKey": "dece-group-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "deceExcludedJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "dece-excluded-job-codes",
+            "partitionKey": "dece-excluded-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "eaaGroupCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "eaa-group-codes",
+            "partitionKey": "eaa-group-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
+            "name": "eaaExcludedJobCodes",
+            "type": "cosmosDB",
+            "databaseName": "sorting-hat",
+            "collectionName": "people-set-definitions",
+            "id": "eaa-excluded-job-codes",
+            "partitionKey": "eaa-excluded-job-codes",
+            "connectionStringSetting": "wrdsb-sorting-hat_CosmosDB",
+            "direction": "in"
+        },
+        {
             "name": "elementarySertsJobCodes",
             "type": "cosmosDB",
             "databaseName": "sorting-hat",

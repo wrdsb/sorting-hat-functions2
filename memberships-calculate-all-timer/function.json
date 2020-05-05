@@ -42,13 +42,6 @@
             "direction": "out"
         },
         {
-            "name": "membershipsUnionsCalculate",
-            "type": "queue",
-            "queueName": "memberships-unions-calculate",
-            "connection": "wrdsbsortinghat_STORAGE",
-            "direction": "out"
-        },
-        {
             "name": "membershipsLegacyJCCalculate",
             "type": "queue",
             "queueName": "memberships-legacy-jc-calculate",
