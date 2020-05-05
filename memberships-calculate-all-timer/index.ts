@@ -30,6 +30,10 @@ const membershipsCalculateAllTimer: AzureFunction = async function (context: Con
     context.bindings.membershipsRolesCalculate = "now";
     context.bindings.membershipsStudentsCalculate = "now";
     context.bindings.membershipsUnionsCalculate = "now";
+    context.bindings.membershipsLegacyJCCalculate = "now";
+    context.bindings.membershipsLegacyGCCalculate = "now";
+    context.bindings.membershipsLegacyLCCalculate = "now";
+    context.bindings.membershipsLegacySCCalculate = "now";
 
     const logPayload = {
         invoke: [
@@ -38,7 +42,11 @@ const membershipsCalculateAllTimer: AzureFunction = async function (context: Con
             "memberships-one-offs-calculate",
             "memberships-roles-calculate",
             "memberships-students-calculate",
-            "memberships-unions-calculate"
+            "memberships-unions-calculate",
+            "memberships-legacy-jc-calculate",
+            "memberships-legacy-gc-calculate",
+            "memberships-legacy-lc-calculate",
+            "memberships-legacy-sc-calculate"
         ]
     };
     const logObject = await createLogObject(functionInvocationID, functionInvocationTime, functionName, logPayload);
