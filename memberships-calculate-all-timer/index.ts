@@ -27,7 +27,6 @@ const membershipsCalculateAllTimer: AzureFunction = async function (context: Con
     context.bindings.membershipsABCCalculateAll = "now";
     context.bindings.membershipsAllStaffCalculate = "now";
     context.bindings.membershipsOneOffsCalculate = "now";
-    context.bindings.membershipsRolesCalculate = "now";
     context.bindings.membershipsStudentsCalculate = "now";
     context.bindings.membershipsUnionsCalculate = "now";
     context.bindings.membershipsLegacyJCCalculate = "now";
@@ -40,7 +39,6 @@ const membershipsCalculateAllTimer: AzureFunction = async function (context: Con
             "memberships-abc-calculate-all",
             "memberships-all-staff-calculate",
             "memberships-one-offs-calculate",
-            "memberships-roles-calculate",
             "memberships-students-calculate",
             "memberships-unions-calculate",
             "memberships-legacy-jc-calculate",

@@ -35,13 +35,6 @@
             "direction": "out"
         },
         {
-            "name": "membershipsRolesCalculate",
-            "type": "queue",
-            "queueName": "memberships-roles-calculate",
-            "connection": "wrdsbsortinghat_STORAGE",
-            "direction": "out"
-        },
-        {
             "name": "membershipsStudentsCalculate",
             "type": "queue",
             "queueName": "memberships-students-calculate",
