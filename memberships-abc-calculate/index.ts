@@ -109,6 +109,9 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
         rows.forEach(function(row) {
             if (row.EMAIL_ADDRESS
                 && row.JOB_CODE
+                && row.EMP_GROUP_CODE
+                && row.LOCATION_CODE
+                && row.PANEL
                 && row.SCHOOL_CODE
                 && !excluded_job_codes.includes(row.JOB_CODE)
                 && activity_codes.includes(row.ACTIVITY_CODE)
