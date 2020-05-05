@@ -41,7 +41,17 @@ const membershipsAllStaffCalculate: AzureFunction = async function (context: Con
             && !excluded_job_codes.includes(row.JOB_CODE)
             && activity_codes.includes(row.ACTIVITY_CODE)
         ) {
-            members.push(row.EMAIL_ADDRESS);
+            let ein = row.EMPLOYEE_ID;
+            let email = row.EMAIL_ADDRESS;
+            let username = row.USERNAME;
+
+            let person = {
+                ein: ein,
+                email: email,
+                username: username
+            };
+
+            members.push(person);
         }
     });
 

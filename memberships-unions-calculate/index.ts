@@ -28,21 +28,21 @@ const membershipsUnionsCalculate: AzureFunction = async function (context: Conte
     const blobStorageKey = process.env['storageKey'];
     const blobStorageContainer = 'set-memberships-now';
 
-    const cama_group_codes = context.bindings.camaGroupCodes.definition;
-    const cyw_job_codes = context.bindings.cywJobCodes.definition;
-    const dece_group_codes = context.bindings.deceGroupCodes.definition;
-    const dece_excluded_job_codes = context.bindings.deceExcludedJobCodes.definition;
-    const dece_observer_job_codes = context.bindings.deceObserverJobCodes.definition;
-    const eaa_group_codes = context.bindings.eaaGroupCodes.definition;
-    const eaa_excluded_job_codes = context.bindings.eaaExcludedJobCodes.definition;
-    const ess_group_codes = context.bindings.essGroupCodes.definition;
-    const etfo_group_codes = context.bindings.etfoGroupCodes.definition;
-    const osstf_contract_group_codes = context.bindings.osstfContractGroupCodes.definition;
-    const osstf_ot_group_codes = context.bindings.osstfOtGroupCodes.definition;
-    const pssp_group_codes = context.bindings.psspGroupCodes.definition;
-    const smaca_group_codes = context.bindings.smacaGroupCodes.definition;
-    const smaca_elementary_group_codes = context.bindings.smacaElementaryGroupCodes.definition;
-    const smaca_secondary_group_codes = context.bindings.smacaSecondaryGroupCodes.definition;
+    const cama_group_codes = context.bindings.camaGroupCodes.definition[0];
+    const cyw_job_codes = context.bindings.cywJobCodes.definition[0];
+    const dece_group_codes = context.bindings.deceGroupCodes.definition[0];
+    const dece_excluded_job_codes = context.bindings.deceExcludedJobCodes.definition[0];
+    const dece_observer_job_codes = context.bindings.deceObserverJobCodes.definition[0];
+    const eaa_group_codes = context.bindings.eaaGroupCodes.definition[0];
+    const eaa_excluded_job_codes = context.bindings.eaaExcludedJobCodes.definition[0];
+    const ess_group_codes = context.bindings.essGroupCodes.definition[0];
+    const etfo_group_codes = context.bindings.etfoGroupCodes.definition[0];
+    const osstf_contract_group_codes = context.bindings.osstfContractGroupCodes.definition[0];
+    const osstf_ot_group_codes = context.bindings.osstfOtGroupCodes.definition[0];
+    const pssp_group_codes = context.bindings.psspGroupCodes.definition[0];
+    const smaca_group_codes = context.bindings.smacaGroupCodes.definition[0];
+    const smaca_elementary_group_codes = context.bindings.smacaElementaryGroupCodes.definition[0];
+    const smaca_secondary_group_codes = context.bindings.smacaSecondaryGroupCodes.definition[0];
 
     const rows = context.bindings.iamwpRaw;
 
@@ -124,75 +124,83 @@ const membershipsUnionsCalculate: AzureFunction = async function (context: Conte
                 && !excluded_job_codes.includes(row.JOB_CODE)
                 && activity_codes.includes(row.ACTIVITY_CODE)
             ) {
+                let ein = row.EMPLOYEE_ID;
                 let email = row.EMAIL_ADDRESS;
+                let username = row.USERNAME;
                 let job_code = 'JC-' + row.JOB_CODE;
                 let group_code = 'GC-' + row.EMP_GROUP_CODE;
                 let panel = row.PANEL;
 
+                let person = {
+                    ein: ein,
+                    email: email,
+                    username: username
+                };
+
                 if (cama_group_codes.includes(group_code)) {
-                    members['cama-group-codes'].push(email);
+                    members['cama-group-codes'].push(person);
                 }
 
                 if (cyw_job_codes.includes(job_code)) {
-                    members['cyw-job-codes'].push(email);
+                    members['cyw-job-codes'].push(person);
                 }
 
                 if (cyw_job_codes.includes(job_code) && panel == 'E') {
-                    members['cyw-elementary-job-codes'].push(email);
+                    members['cyw-elementary-job-codes'].push(person);
                 }
 
                 if (cyw_job_codes.includes(job_code) && panel == 'S') {
-                    members['cyw-secondary-job-codes'].push(email);
+                    members['cyw-secondary-job-codes'].push(person);
                 }
         
                 if (dece_group_codes.includes(group_code) && !dece_excluded_job_codes.includes(job_code)) {
-                    members['dece-group-codes'].push(email);
+                    members['dece-group-codes'].push(person);
                 }
 
                 if (dece_observer_job_codes.includes(job_code)) {
-                    members['dece-observer-job-codes'].push(email);
+                    members['dece-observer-job-codes'].push(person);
                 }
 
                 if (eaa_group_codes.includes(group_code) && !eaa_excluded_job_codes.includes(job_code)) {
-                    members['eaa-group-codes'].push(email);
+                    members['eaa-group-codes'].push(person);
                     if (panel == 'E') {
-                        members['eaa-elementary-group-codes'].push(email);
+                        members['eaa-elementary-group-codes'].push(person);
                     }
                     if (panel == 'S') {
-                        members['eaa-secondary-group-codes'].push(email);
+                        members['eaa-secondary-group-codes'].push(person);
                     }
                 }
 
                 if (ess_group_codes.includes(group_code)) {
-                    members['ess-group-codes'].push(email);
+                    members['ess-group-codes'].push(person);
                 }
 
                 if (etfo_group_codes.includes(group_code)) {
-                    members['etfo-group-codes'].push(email);
+                    members['etfo-group-codes'].push(person);
                 }
 
                 if (osstf_contract_group_codes.includes(group_code)) {
-                    members['osstf-contract-group-codes'].push(email);
+                    members['osstf-contract-group-codes'].push(person);
                 }
 
                 if (osstf_ot_group_codes.includes(group_code)) {
-                    members['osstf-ot-group-codes'].push(email);
+                    members['osstf-ot-group-codes'].push(person);
                 }
 
                 if (pssp_group_codes.includes(group_code)) {
-                    members['pssp-group-codes'].push(email);
+                    members['pssp-group-codes'].push(person);
                 }
 
                 if (smaca_group_codes.includes(group_code)) {
-                    members['smaca-group-codes'].push(email);
+                    members['smaca-group-codes'].push(person);
                 }
 
                 if (smaca_elementary_group_codes.includes(group_code) && panel == 'E') {
-                    members['smaca-elementary-group-codes'].push(email);
+                    members['smaca-elementary-group-codes'].push(person);
                 }
 
                 if (smaca_secondary_group_codes.includes(group_code) && panel == 'S') {
-                    members['smaca-secondary-group-codes'].push(email);
+                    members['smaca-secondary-group-codes'].push(person);
                 }
             }
         });

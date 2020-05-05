@@ -86,6 +86,12 @@ const membershipsStudentsCalculate: AzureFunction = async function (context: Con
                 let school_code = (student.school_code) ? student.school_code.toLowerCase() : '';
                 let oyap = (student.student_oyap === 'Y') ? true : false;
 
+                let person = {
+                    student_nubmer: student.student_nubmer,
+                    email: email,
+                    username: ""
+                };
+
                 if (!members[school_code]) {
                     members[school_code] = [];
                 }
@@ -93,10 +99,10 @@ const membershipsStudentsCalculate: AzureFunction = async function (context: Con
                     members['oyap'] = [];
                 }
 
-                members[school_code].push(email);
+                members[school_code].push(person);
         
                 if (oyap) {
-                    members['oyap'].push(email);
+                    members['oyap'].push(person);
                 }
             }
         });

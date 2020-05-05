@@ -28,19 +28,18 @@ const membershipsRolesCalculate: AzureFunction = async function (context: Contex
     const blobStorageKey = process.env['storageKey'];
     const blobStorageContainer = 'set-memberships-now';
 
-    const elementary_admin_job_codes = context.bindings.elementaryAdminJobCodes.definition;
-    const elementary_head_secretaries_job_codes = context.bindings.elementaryHeadSecretariesJobCodes.definition;
-    const elementary_c_secretaries_job_codes = context.bindings.elementaryCSecretariesJobCodes.definition;
-    const elementary_teachers_group_codes = context.bindings.elementaryTeachersGroupCodes.definition;
-    const elementary_ot_teachers_job_codes = context.bindings.elementaryOtTeachersJobCodes.definition;
-    const elementary_staffing_support_job_codes = context.bindings.elementaryStaffingSupportJobCodes.definition;
-    
-    const secondary_admin_job_codes = context.bindings.secondaryAdminJobCodes.definition;
-    const secondary_office_supervisors_job_codes = context.bindings.secondaryOfficeSupervisorsJobCodes.definition;
-    const secondary_office_assistants_job_codes = context.bindings.secondaryOfficeAssistantsJobCodes.definition;
-    const secondary_c_secretaries_job_codes = context.bindings.secondaryCSecretariesJobCodes.definition;
-    const secondary_teachers_group_codes = context.bindings.secondaryTeachersGroupCodes.definition;
-    const secondary_ot_teachers_group_codes = context.bindings.secondaryOtTeachersGroupCodes.definition;
+    const elementary_admin_job_codes = context.bindings.elementaryAdminJobCodes.definition[0];
+    const elementary_head_secretaries_job_codes = context.bindings.elementaryHeadSecretariesJobCodes.definition[0];
+    const elementary_c_secretaries_job_codes = context.bindings.elementaryCSecretariesJobCodes.definition[0];
+    const elementary_teachers_group_codes = context.bindings.elementaryTeachersGroupCodes.definition[0];
+    const elementary_ot_teachers_job_codes = context.bindings.elementaryOtTeachersJobCodes.definition[0];
+    const elementary_staffing_support_job_codes = context.bindings.elementaryStaffingSupportJobCodes.definition[0];
+    const secondary_admin_job_codes = context.bindings.secondaryAdminJobCodes.definition[0];
+    const secondary_office_supervisors_job_codes = context.bindings.secondaryOfficeSupervisorsJobCodes.definition[0];
+    const secondary_office_assistants_job_codes = context.bindings.secondaryOfficeAssistantsJobCodes.definition[0];
+    const secondary_c_secretaries_job_codes = context.bindings.secondaryCSecretariesJobCodes.definition[0];
+    const secondary_teachers_group_codes = context.bindings.secondaryTeachersGroupCodes.definition[0];
+    const secondary_ot_teachers_group_codes = context.bindings.secondaryOtTeachersGroupCodes.definition[0];
 
     const rows = context.bindings.iamwpRaw;
 
@@ -116,56 +115,64 @@ const membershipsRolesCalculate: AzureFunction = async function (context: Contex
                 && !excluded_job_codes.includes(row.JOB_CODE)
                 && activity_codes.includes(row.ACTIVITY_CODE)
             ) {
+                let ein = row.EMPLOYEE_ID;
                 let email = row.EMAIL_ADDRESS;
+                let username = row.USERNAME;
                 let job_code = 'JC-' + row.JOB_CODE;
                 let group_code = 'GC-' + row.EMP_GROUP_CODE;
 
+                let person = {
+                    ein: ein,
+                    email: email,
+                    username: username
+                };
+
                 if (elementary_admin_job_codes.includes(job_code)) {
-                    members['elementary-admin-job-codes'].push(email);
+                    members['elementary-admin-job-codes'].push(person);
                 }
                 
                 if (elementary_head_secretaries_job_codes.includes(job_code)) {
-                    members['elementary-head-secretaries-job-codes'].push(email);
+                    members['elementary-head-secretaries-job-codes'].push(person);
                 }
                 
                 if (elementary_c_secretaries_job_codes.includes(job_code)) {
-                    members['elementary-c-secretaries-job-codes'].push(email);
+                    members['elementary-c-secretaries-job-codes'].push(person);
                 }
                 
                 if (elementary_teachers_group_codes.includes(group_code)) {
-                    members['elementary-teachers-group-codes'].push(email);
+                    members['elementary-teachers-group-codes'].push(person);
                 }
                 
                 if (elementary_ot_teachers_job_codes.includes(job_code)) {
-                    members['elementary-ot-teachers-job-codes'].push(email);
+                    members['elementary-ot-teachers-job-codes'].push(person);
                 }
                 
                 if (elementary_staffing_support_job_codes.includes(job_code)) {
-                    members['elementary-staffing-support-job-codes'].push(email);
+                    members['elementary-staffing-support-job-codes'].push(person);
                 }
                 
                 if (secondary_admin_job_codes.includes(job_code)) {
-                    members['secondary-admin-job-codes'].push(email);
+                    members['secondary-admin-job-codes'].push(person);
                 }
                 
                 if (secondary_office_supervisors_job_codes.includes(job_code)) {
-                    members['secondary-office-supervisors-job-codes'].push(email);
+                    members['secondary-office-supervisors-job-codes'].push(person);
                 }
                 
                 if (secondary_office_assistants_job_codes.includes(job_code)) {
-                    members['secondary-office-assistants-job-codes'].push(email);
+                    members['secondary-office-assistants-job-codes'].push(person);
                 }
                 
                 if (secondary_c_secretaries_job_codes.includes(job_code)) {
-                    members['secondary-c-secretaries-job-codes'].push(email);
+                    members['secondary-c-secretaries-job-codes'].push(person);
                 }
                 
                 if (secondary_teachers_group_codes.includes(group_code)) {
-                    members['secondary-teachers-group-codes'].push(email);
+                    members['secondary-teachers-group-codes'].push(person);
                 }
                 
                 if (secondary_ot_teachers_group_codes.includes(group_code)) {
-                    members['secondary-ot-teachers-group-codes'].push(email);
+                    members['secondary-ot-teachers-group-codes'].push(person);
                 }
             }
         });

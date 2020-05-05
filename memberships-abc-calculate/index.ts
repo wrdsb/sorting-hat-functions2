@@ -28,15 +28,15 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
     const blobStorageKey = process.env['storageKey'];
     const blobStorageContainer = 'set-memberships-now';
 
-    const admin_job_codes = context.bindings.abcAdminJobCodes.definition;
-    const attendance_job_codes = context.bindings.abcAttendanceJobCodes.definition;
-    const beforeafter_job_codes = context.bindings.abcBeforeafterJobCodes.definition;
-    const courier_job_codes = context.bindings.abcCourierJobCodes.definition;
-    const easyconnect_job_codes = context.bindings.abcEasyconnectJobCodes.definition;
-    const its_job_codes = context.bindings.abcItsJobCodes.definition;
-    const office_job_codes = context.bindings.abcOfficeJobCodes.definition;
-    const orders_job_codes = context.bindings.abcOrdersJobCodes.definition;
-    const s4s_job_codes = context.bindings.abcS4sJobCodes.definition;
+    const admin_job_codes = context.bindings.abcAdminJobCodes.definition[0];
+    const attendance_job_codes = context.bindings.abcAttendanceJobCodes.definition[0];
+    const beforeafter_job_codes = context.bindings.abcBeforeafterJobCodes.definition[0];
+    const courier_job_codes = context.bindings.abcCourierJobCodes.definition[0];
+    const easyconnect_job_codes = context.bindings.abcEasyconnectJobCodes.definition[0];
+    const its_job_codes = context.bindings.abcItsJobCodes.definition[0];
+    const office_job_codes = context.bindings.abcOfficeJobCodes.definition[0];
+    const orders_job_codes = context.bindings.abcOrdersJobCodes.definition[0];
+    const s4s_job_codes = context.bindings.abcS4sJobCodes.definition[0];
 
     const rows = context.bindings.iamwpRaw;
 
@@ -115,9 +115,17 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
                 && isNaN(row.SCHOOL_CODE)
                 && requested_school_code == row.SCHOOL_CODE.toUpperCase()
             ) {
+                let ein = row.EMPLOYEE_ID;
                 let email = row.EMAIL_ADDRESS;
+                let username = row.USERNAME;
                 let job_code = 'JC-' + row.JOB_CODE;
                 let school_code = 'SC-' + row.SCHOOL_CODE.toUpperCase();
+
+                let person = {
+                    ein: ein,
+                    email: email,
+                    username: username
+                };
 
                 if (row.EMP_GROUP_CODE) {
                     let group_code = 'GC-' + row.EMP_GROUP_CODE;
@@ -132,42 +140,42 @@ const membershipsABCCalculate: AzureFunction = async function (context: Context,
                     let activity_code = row.ACTIVITY_CODE;
                 }
 
-                members['staff-school-codes'].push(email);
+                members['staff-school-codes'].push(person);
 
                 if (admin_job_codes.includes(job_code)) {
-                    members['admin-job-codes'].push(email);
+                    members['admin-job-codes'].push(person);
                 }
 
                 if (attendance_job_codes.includes(job_code)) {
-                    members['attendance-job-codes'].push(email);
+                    members['attendance-job-codes'].push(person);
                 }
             
                 if (beforeafter_job_codes.includes(job_code)) {
-                    members['beforeafter-job-codes'].push(email);
+                    members['beforeafter-job-codes'].push(person);
                 }
             
                 if (courier_job_codes.includes(job_code)) {
-                    members['courier-job-codes'].push(email);
+                    members['courier-job-codes'].push(person);
                 }
             
                 if (easyconnect_job_codes.includes(job_code)) {
-                    members['easyconnect-job-codes'].push(email);
+                    members['easyconnect-job-codes'].push(person);
                 }
             
                 if (its_job_codes.includes(job_code)) {
-                    members['its-job-codes'].push(email);
+                    members['its-job-codes'].push(person);
                 }
             
                 if (office_job_codes.includes(job_code)) {
-                    members['office-job-codes'].push(email);
+                    members['office-job-codes'].push(person);
                 }
             
                 if (orders_job_codes.includes(job_code)) {
-                    members['orders-job-codes'].push(email);
+                    members['orders-job-codes'].push(person);
                 }
             
                 if (s4s_job_codes.includes(job_code)) {
-                    members['s4s-job-codes'].push(email);
+                    members['s4s-job-codes'].push(person);
                 }
             }
         });
