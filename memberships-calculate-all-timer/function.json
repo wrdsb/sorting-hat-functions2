@@ -41,35 +41,7 @@
             "connection": "wrdsbsortinghat_STORAGE",
             "direction": "out"
         },
-        {
-            "name": "membershipsLegacyJCCalculate",
-            "type": "queue",
-            "queueName": "memberships-legacy-jc-calculate",
-            "connection": "wrdsbsortinghat_STORAGE",
-            "direction": "out"
-        },
-        {
-            "name": "membershipsLegacyGCCalculate",
-            "type": "queue",
-            "queueName": "memberships-legacy-gc-calculate",
-            "connection": "wrdsbsortinghat_STORAGE",
-            "direction": "out"
-        },
-        {
-            "name": "membershipsLegacyLCCalculate",
-            "type": "queue",
-            "queueName": "memberships-legacy-lc-calculate",
-            "connection": "wrdsbsortinghat_STORAGE",
-            "direction": "out"
-        },
-        {
-            "name": "membershipsLegacySCCalculate",
-            "type": "queue",
-            "queueName": "memberships-legacy-sc-calculate",
-            "connection": "wrdsbsortinghat_STORAGE",
-            "direction": "out"
-        },
-        {
+       {
             "name": "callbackMessage",
             "type": "queue",
             "queueName": "callbacks",
