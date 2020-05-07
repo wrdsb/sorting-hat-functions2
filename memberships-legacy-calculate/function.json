@@ -25,9 +25,44 @@
             "direction": "in"
         },
         {
-            "name": "setMembershipBlob",
+            "name": "setMembershipsByEmailArray",
             "type": "blob",
-            "path": "legacy-set-memberships-now/{set}.json",
+            "path": "legacy-set-memberships-now/{set}-by-email-array.json",
+            "connection": "wrdsbsortinghat_STORAGE",
+            "direction": "out"
+        },
+        {
+            "name": "setMembershipsByEmailObject",
+            "type": "blob",
+            "path": "legacy-set-memberships-now/{set}-by-email-object.json",
+            "connection": "wrdsbsortinghat_STORAGE",
+            "direction": "out"
+        },
+        {
+            "name": "setMembershipsByEINArray",
+            "type": "blob",
+            "path": "legacy-set-memberships-now/{set}-by-ein-array.json",
+            "connection": "wrdsbsortinghat_STORAGE",
+            "direction": "out"
+        },
+        {
+            "name": "setMembershipsByEINObject",
+            "type": "blob",
+            "path": "legacy-set-memberships-now/{set}-by-ein-object.json",
+            "connection": "wrdsbsortinghat_STORAGE",
+            "direction": "out"
+        },
+        {
+            "name": "setMembershipsByUsernameArray",
+            "type": "blob",
+            "path": "legacy-set-memberships-now/{set}-by-username-array.json",
+            "connection": "wrdsbsortinghat_STORAGE",
+            "direction": "out"
+        },
+        {
+            "name": "setMembershipsByUsernameObject",
+            "type": "blob",
+            "path": "legacy-set-memberships-now/{set}-by-username-object.json",
             "connection": "wrdsbsortinghat_STORAGE",
             "direction": "out"
         },

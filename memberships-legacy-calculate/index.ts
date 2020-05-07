@@ -30,7 +30,13 @@ const membershipsLegacyCalculate: AzureFunction = async function (context: Conte
     const excluded_job_codes = ['6106', '6118'];
     const activity_codes = ['ACTIVE', 'ONLEAVE'];
 
-    let members = {};
+    let membersByEmail = {};
+    let membersByEIN = {};
+    let membersByUsername = {};
+
+    let membersByEmailArray = [];
+    let membersByEINArray = [];
+    let membersByUsernameArray = [];
 
     rows.forEach(function(row) {
         if ( !excluded_job_codes.includes(row.JOB_CODE) && activity_codes.includes(row.ACTIVITY_CODE)) {
@@ -70,14 +76,33 @@ const membershipsLegacyCalculate: AzureFunction = async function (context: Conte
             let qualified = qualifies.every(v => v === true);
 
             if (qualified) {
-                members[email] = person;
+                membersByEmail[email] = person;
+                membersByEIN[ein] = person;
+                membersByUsername[username] = person;
             }
         }
     });
 
-    context.bindings.setMembershipBlob = JSON.stringify(members);
+    Object.getOwnPropertyNames(membersByEmail).forEach(function (email) {
+        membersByEmailArray.push(membersByEmail[email]);
+    })
+    Object.getOwnPropertyNames(membersByEIN).forEach(function (ein) {
+        membersByEINArray.push(membersByEIN[ein]);
+    })
+    Object.getOwnPropertyNames(membersByUsername).forEach(function (username) {
+        membersByUsernameArray.push(membersByUsername[username]);
+    })
 
-    const logPayload = members;
+    context.bindings.setMembershipsByEmailObject = JSON.stringify(membersByEmail);
+    context.bindings.setMembershipsByEmailArray = JSON.stringify(membersByEmailArray);
+
+    context.bindings.setMembershipsByEINObject = JSON.stringify(membersByEIN);
+    context.bindings.setMembershipsByEINArray = JSON.stringify(membersByEINArray);
+
+    context.bindings.setMembershipsByUsernameObject = JSON.stringify(membersByUsername);
+    context.bindings.setMembershipsByUsernameArray = JSON.stringify(membersByUsernameArray);
+
+    const logPayload = membersByEmail;
     const logObject = await createLogObject(functionInvocationID, functionInvocationTime, functionName, logPayload);
     const logBlob = await createLogBlob(logStorageAccount, logStorageKey, logStorageContainer, logObject);
     context.log(logBlob);
