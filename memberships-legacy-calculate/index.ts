@@ -52,16 +52,11 @@ const membershipsLegacyCalculate: AzureFunction = async function (context: Conte
             let panel = (row.PANEL) ? 'PANEL-' + row.PANEL : 'PANEL-X';
 
             let qualifications = [job_code, group_code, location_code, school_code, panel];
-            context.log(qualifications);
-
             let qualifies = [];
 
             legacySetDefinition.definition.forEach(function(criteria) {  // foreach array of criteria in the definition
-                context.log(criteria);
 
                 let check = criteria.some(function(criterion) {          //   look at each criterion on the array
-                    context.log(criterion);
-
                     if (criterion.charAt(0) === '!' ) {                  //     if the criterion is an exclusion
                         return !qualifications.includes(criterion.substr(1));
                     } else {                                             //     if the criterion is an inclusion
@@ -72,8 +67,6 @@ const membershipsLegacyCalculate: AzureFunction = async function (context: Conte
                 qualifies.push(check);
             });
 
-            context.log(qualifies);
-            
             let qualified = qualifies.every(v => v === true);
 
             if (qualified) {
