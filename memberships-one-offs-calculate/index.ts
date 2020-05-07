@@ -95,19 +95,15 @@ const membershipsOneOffsCalculate: AzureFunction = async function (context: Cont
         let members = {};
         members['elementary-serts-job-codes'] = [];
         members['secondary-serts-job-codes'] = [];
-        members['intranet-trillium-job-codes'] = [];
         members['itinerant-spec-ed-job-codes'] = [];
         members['smaca-elementary-group-codes'] = [];
         members['smaca-secondary-group-codes'] = [];
-        members['cyw-job-codes'] = [];
         members['cyw-elementary-job-codes'] = [];
         members['cyw-secondary-job-codes'] = [];
         members['dece-group-codes'] = [];
         members['eaa-group-codes'] = [];
         members['eaa-elementary-group-codes'] = [];
         members['eaa-secondary-group-codes'] = [];
-        members['smaca-elementary-group-codes'] = [];
-        members['smaca-secondary-group-codes'] = [];
 
         rows.forEach(function(row) {
             if (row.EMAIL_ADDRESS
@@ -134,31 +130,47 @@ const membershipsOneOffsCalculate: AzureFunction = async function (context: Cont
                     username: username
                 };
 
+                // done
                 if (elementary_serts_job_codes.includes(job_code) && panel == 'E') {
                     members['elementary-serts-job-codes'].push(person);
                 }
+
+                // done
                 if (secondary_serts_job_codes.includes(job_code) && panel == 'S') {
                     members['secondary-serts-job-codes'].push(person);
                 }
-                if (itinerant_spec_ed_job_codes.includes(job_code) && itinerant_spec_ed_location_codes.includes(location_code)) {
-                    members['itinerant-spec-ed-job-codes'].push(person);
-                }
+
+                // done
                 if (smaca_elementary_group_codes.includes(group_code) && panel == 'E') {
                     members['smaca-elementary-group-codes'].push(person);
                 }
+
+                // done
                 if (smaca_secondary_group_codes.includes(group_code) && panel == 'S') {
                     members['smaca-secondary-group-codes'].push(person);
                 }
 
+                // done
                 if (cyw_job_codes.includes(job_code) && panel == 'E') {
                     members['cyw-elementary-job-codes'].push(person);
                 }
+
+                // done
                 if (cyw_job_codes.includes(job_code) && panel == 'S') {
                     members['cyw-secondary-job-codes'].push(person);
                 }
+                
+                // done
+                if (itinerant_spec_ed_job_codes.includes(job_code) && itinerant_spec_ed_location_codes.includes(location_code)) {
+                    members['itinerant-spec-ed-job-codes'].push(person);
+                }
+                
+                // done
                 if (dece_group_codes.includes(group_code) && !dece_excluded_job_codes.includes(job_code)) {
                     members['dece-group-codes'].push(person);
                 }
+
+                // done
                 if (eaa_group_codes.includes(group_code) && !eaa_excluded_job_codes.includes(job_code)) {
                     members['eaa-group-codes'].push(person);
                     if (panel == 'E') {
@@ -167,12 +179,6 @@ const membershipsOneOffsCalculate: AzureFunction = async function (context: Cont
                     if (panel == 'S') {
                         members['eaa-secondary-group-codes'].push(person);
                     }
-                }
-                if (smaca_elementary_group_codes.includes(group_code) && panel == 'E') {
-                    members['smaca-elementary-group-codes'].push(person);
-                }
-                if (smaca_secondary_group_codes.includes(group_code) && panel == 'S') {
-                    members['smaca-secondary-group-codes'].push(person);
                 }
             }
         });
