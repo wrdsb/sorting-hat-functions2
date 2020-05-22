@@ -34,9 +34,8 @@ const membershipsLegacyCalculate: AzureFunction = async function (context: Conte
     let membersByEIN = {};
     let membersByUsername = {};
 
-    let membersByEmailArray = [];
-    let membersByEINArray = [];
-    let membersByUsernameArray = [];
+    let membersArray = [];
+    let membersCSV = '"ein","email","username","first_name","last_name","full_name","sortable_name"' + "\n";
 
     rows.forEach(function(row) {
         if ( !excluded_job_codes.includes(row.JOB_CODE) && activity_codes.includes(row.ACTIVITY_CODE)) {
@@ -44,11 +43,19 @@ const membershipsLegacyCalculate: AzureFunction = async function (context: Conte
             let ein = (row.EMPLOYEE_ID) ? row.EMPLOYEE_ID : '';
             let email = (row.EMAIL_ADDRESS) ? row.EMAIL_ADDRESS : '';
             let username = (row.USERNAME) ? row.USERNAME.toLowerCase() : '';
+            let first_name = (row.FIRST_NAME) ? row.FIRST_NAME : '';
+            let last_name = (row.SURNAME) ? row.SURNAME : '';
+            let full_name = (row.SURNAME && row.FIRST_NAME) ? row.FIRST_NAME + ' ' + row.SURNAME : '';
+            let sortable_name = (row.SURNAME && row.FIRST_NAME) ? row.SURNAME + ', ' + row.FIRST_NAME : '';
 
             let person = {
                 ein: ein,
                 email: email,
-                username: username
+                username: username,
+                first_name: first_name,
+                last_name: last_name,
+                full_name: full_name,
+                sortable_name: sortable_name
             };
 
             let job_code = (row.JOB_CODE) ? 'JC-' + row.JOB_CODE : '';
@@ -84,23 +91,20 @@ const membershipsLegacyCalculate: AzureFunction = async function (context: Conte
     });
 
     Object.getOwnPropertyNames(membersByEmail).forEach(function (email) {
-        membersByEmailArray.push(membersByEmail[email]);
-    })
-    Object.getOwnPropertyNames(membersByEIN).forEach(function (ein) {
-        membersByEINArray.push(membersByEIN[ein]);
-    })
-    Object.getOwnPropertyNames(membersByUsername).forEach(function (username) {
-        membersByUsernameArray.push(membersByUsername[username]);
+        let member = membersByEmail[email];
+
+        membersArray.push(membersByEmail[email]);
+        
+        let csv_row = '"' + member.ein +'","'+ member.email +'","'+ member.username +'","'+ member.first_name +'","'+ member.last_name +'","'+ member.full_name +'","'+ member.sortable_name + '"' + "\n";
+        membersCSV = membersCSV + csv_row;
     })
 
     context.bindings.setMembershipsByEmailObject = JSON.stringify(membersByEmail);
-    context.bindings.setMembershipsByEmailArray = JSON.stringify(membersByEmailArray);
-
     context.bindings.setMembershipsByEINObject = JSON.stringify(membersByEIN);
-    context.bindings.setMembershipsByEINArray = JSON.stringify(membersByEINArray);
-
     context.bindings.setMembershipsByUsernameObject = JSON.stringify(membersByUsername);
-    context.bindings.setMembershipsByUsernameArray = JSON.stringify(membersByUsernameArray);
+
+    context.bindings.setMembershipsArray = JSON.stringify(membersArray);
+    context.bindings.setMembershipsCSV = membersCSV;
 
     const logPayload = membersByEmail;
     const logObject = await createLogObject(functionInvocationID, functionInvocationTime, functionName, logPayload);

@@ -10,6 +10,13 @@
         {
             "name": "iamwpRaw",
             "type": "blob",
+            "path": "hris/view-iamwp-raw.json",
+            "connection": "wrdsbflenderson_STORAGE",
+            "direction": "in"
+        },
+        {
+            "name": "testData",
+            "type": "blob",
             "path": "test-data/view-iamwp-raw-test.json",
             "connection": "wrdsbsortinghat_STORAGE",
             "direction": "in"
@@ -25,23 +32,9 @@
             "direction": "in"
         },
         {
-            "name": "setMembershipsByEmailArray",
-            "type": "blob",
-            "path": "legacy-set-memberships-now/{set}-by-email-array.json",
-            "connection": "wrdsbsortinghat_STORAGE",
-            "direction": "out"
-        },
-        {
             "name": "setMembershipsByEmailObject",
             "type": "blob",
             "path": "legacy-set-memberships-now/{set}-by-email-object.json",
-            "connection": "wrdsbsortinghat_STORAGE",
-            "direction": "out"
-        },
-        {
-            "name": "setMembershipsByEINArray",
-            "type": "blob",
-            "path": "legacy-set-memberships-now/{set}-by-ein-array.json",
             "connection": "wrdsbsortinghat_STORAGE",
             "direction": "out"
         },
@@ -53,16 +46,23 @@
             "direction": "out"
         },
         {
-            "name": "setMembershipsByUsernameArray",
+            "name": "setMembershipsByUsernameObject",
             "type": "blob",
-            "path": "legacy-set-memberships-now/{set}-by-username-array.json",
+            "path": "legacy-set-memberships-now/{set}-by-username-object.json",
             "connection": "wrdsbsortinghat_STORAGE",
             "direction": "out"
         },
         {
-            "name": "setMembershipsByUsernameObject",
+            "name": "setMembershipsArray",
             "type": "blob",
-            "path": "legacy-set-memberships-now/{set}-by-username-object.json",
+            "path": "legacy-set-memberships-now/{set}-array.json",
+            "connection": "wrdsbsortinghat_STORAGE",
+            "direction": "out"
+        },
+        {
+            "name": "setMembershipsCSV",
+            "type": "blob",
+            "path": "legacy-set-memberships-now/{set}.csv",
             "connection": "wrdsbsortinghat_STORAGE",
             "direction": "out"
         },
